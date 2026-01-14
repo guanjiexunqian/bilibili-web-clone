@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Upload, Mail, Lightbulb, Star, Clock, MonitorPlay, Download, History, Palette, ChevronRight, Flame, ChevronLeft } from 'lucide-react';
+import { Search, Upload, Mail, Lightbulb, Star, Clock, MonitorPlay, Download, History, Palette, ChevronRight, Flame, ChevronLeft, Tv, MessageCircle, FileText, MonitorCheck } from 'lucide-react';
+import { LoginModal } from './LoginModal';
 
 interface HeaderProps {
   onSearch: (query: string) => void;
@@ -20,6 +21,7 @@ const watchingList = [
 export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigate, currentPage }) => {
   const [searchValue, setSearchValue] = useState('');
   const [showAnimePreview, setShowAnimePreview] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -49,6 +51,8 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
 
   return (
     <div className="relative w-full h-[155px] mb-2">
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
+      
       <style>{`
         @keyframes slideUpFadeIn {
           0% {
@@ -76,6 +80,18 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
         .no-scrollbar {
           -ms-overflow-style: none;  /* IE and Edge */
           scrollbar-width: none;  /* Firefox */
+        }
+        
+        .login-tip-arrow {
+            position: absolute;
+            top: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; 
+            height: 0; 
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-bottom: 6px solid #222;
         }
       `}</style>
 
@@ -305,9 +321,47 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
 
           {/* Right: User Actions */}
           <div className="flex items-center gap-2 text-[11px] text-white">
-            <div className="flex flex-col items-center cursor-pointer min-w-[50px]">
-               <div className="w-[38px] h-[38px] rounded-full bg-gray-200 overflow-hidden border-[2px] border-white/50 hover:border-white transition-colors shadow-md">
-                   <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar" />
+            <div className="flex flex-col items-center cursor-pointer min-w-[50px] relative group/avatar">
+               <div 
+                  className="w-[38px] h-[38px] rounded-full bg-gray-200 overflow-hidden border-[2px] border-white/50 hover:border-white transition-all shadow-md z-20 group-hover/avatar:scale-125 group-hover/avatar:translate-y-2 duration-300"
+                  onClick={() => setIsLoginModalOpen(true)}
+               >
+                   <div className="absolute inset-0 flex items-center justify-center bg-[#00AEEC] text-white font-bold text-xs">登录</div>
+               </div>
+
+               {/* Login Popover */}
+               <div className="absolute top-[30px] left-1/2 -translate-x-1/2 pt-6 w-[360px] hidden group-hover/avatar:block z-10 animate-fade-in origin-top">
+                   <div className="bg-[#222] rounded-lg shadow-xl p-5 relative text-white">
+                       <div className="login-tip-arrow"></div>
+                       <p className="text-[14px] mb-4 text-left">登录后你可以：</p>
+                       <div className="grid grid-cols-2 gap-y-4 gap-x-2 mb-5">
+                          <div className="flex items-center gap-2">
+                             <Tv size={18} className="text-[#00AEEC]" />
+                             <span className="text-[13px] text-gray-300">免费看高清视频</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                             <History size={18} className="text-[#00AEEC]" />
+                             <span className="text-[13px] text-gray-300">多端同步播放记录</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                             <MessageCircle size={18} className="text-[#00AEEC]" />
+                             <span className="text-[13px] text-gray-300">发表弹幕/评论</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                             <MonitorCheck size={18} className="text-[#00AEEC]" />
+                             <span className="text-[13px] text-gray-300">热门番剧影视看不停</span>
+                          </div>
+                       </div>
+                       <button 
+                         className="w-full bg-[#00AEEC] hover:bg-[#00AEEC]/90 text-white py-2.5 rounded-md font-medium text-[14px] transition-colors mb-3"
+                         onClick={() => setIsLoginModalOpen(true)}
+                       >
+                           立即登录
+                       </button>
+                       <div className="text-center text-[12px] text-gray-400">
+                          首次使用？ <span className="text-[#00AEEC] cursor-pointer hover:underline" onClick={() => setIsLoginModalOpen(true)}>点我注册</span>
+                       </div>
+                   </div>
                </div>
             </div>
             
