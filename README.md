@@ -1,20 +1,19 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/drive/1RrJ6SQB4WLcMZg9vcN86IHgUvM2d1Yd6
-
-## Run Locally
-
-**Prerequisites:**  Node.js
+# Google AI Studio Demo App
+基于Gemini的AI应用快速开发演示项目，可通过Google AI Studio快速从Prompt部署到生产环境。
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## 项目介绍
+这是一个Google AI Studio的示例应用，包含本地运行所需的全部配置，可快速启动并调试基于Gemini的AI功能。
+- 在线体验：[Google AI Studio应用链接](https://ai.studio/apps/drive/1RrJ6SQ84WlcMZg9vcN86lHgUmM2d1Yd6)
+
+
+## 本地运行步骤
+### 前置依赖
+- Node.js（建议v18+）
+
+
+### 操作步骤
+1. 克隆仓库到本地
+   ```bash
+   git clone [你的仓库地址]
+   cd [仓库名称]
