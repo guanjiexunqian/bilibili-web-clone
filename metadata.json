@@ -1,0 +1,5 @@
+{
+  "name": "Bilibili Clone AI",
+  "description": "A high-fidelity clone of the Bilibili homepage featuring a functional AI-powered search that generates realistic video feeds using Gemini.",
+  "requestFramePermissions": []
+}
