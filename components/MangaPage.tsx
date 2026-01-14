@@ -9,13 +9,13 @@ const MANGA_NAV = ["首页", "分类", "更新", "排行榜"];
 const GENRES = ["热血", "古风", "玄幻", "奇幻", "悬疑", "都市", "历史", "武侠仙侠", "游戏竞技", "悬疑灵异", "架空", "青春", "西幻", "现代", "全部 >"];
 
 const HERO_ITEMS = [
-  { id: 1, title: "回归后的魔王变善良了", subtitle: "魔王转职奶爸？", img: "https://picsum.photos/id/1015/300/400" },
-  { id: 2, title: "连载5周年", subtitle: "热血感动常在", img: "https://picsum.photos/id/1016/300/400" },
-  { id: 3, title: "小智怪谈", subtitle: "细思极恐", img: "https://picsum.photos/id/1018/300/400" },
-  { id: 4, title: "强度拉满的韩漫修罗场", subtitle: "完蛋，我被美女包围了", desc: "注定被反派宠爱的命运，来自反派大姐姐的危险奖励！上不封...", img: "https://picsum.photos/id/1019/500/600", active: true },
-  { id: 5, title: "圣女的魔力是万能的", subtitle: "异世界慢生活", img: "https://picsum.photos/id/1020/300/400" },
-  { id: 6, title: "神秘降临", subtitle: "国漫新作", img: "https://picsum.photos/id/1021/300/400" },
-  { id: 7, title: "我推的孩子", subtitle: "演艺圈黑暗面", img: "https://picsum.photos/id/1022/300/400" },
+  { id: 1, title: "回归后的魔王变善良了", subtitle: "魔王转职奶爸？", img: "https://picsum.photos/seed/demon-lord-dad/300/400" },
+  { id: 2, title: "连载5周年", subtitle: "热血感动常在", img: "https://picsum.photos/seed/manga-anniversary/300/400" },
+  { id: 3, title: "小智怪谈", subtitle: "细思极恐", img: "https://picsum.photos/seed/horror-manga/300/400" },
+  { id: 4, title: "强度拉满的韩漫修罗场", subtitle: "完蛋，我被美女包围了", desc: "注定被反派宠爱的命运，来自反派大姐姐的危险奖励！上不封...", img: "https://picsum.photos/seed/manhwa-romance/500/600", active: true },
+  { id: 5, title: "圣女的魔力是万能的", subtitle: "异世界慢生活", img: "https://picsum.photos/seed/saint-magic/300/400" },
+  { id: 6, title: "神秘降临", subtitle: "国漫新作", img: "https://picsum.photos/seed/mystery-comic/300/400" },
+  { id: 7, title: "我推的孩子", subtitle: "演艺圈黑暗面", img: "https://picsum.photos/seed/idol-anime/300/400" },
 ];
 
 const RIGHT_SIDEBAR_MENU = [
@@ -39,7 +39,7 @@ export const MangaPage: React.FC<MangaPageProps> = ({ onNavigate }) => {
             <div className="flex items-center gap-6">
                <div className="flex items-center gap-2 cursor-pointer" onClick={() => onNavigate('home')}>
                    <div className="w-9 h-9 rounded-lg bg-transparent flex items-center justify-center overflow-hidden">
-                        <img src="https://picsum.photos/id/1060/100/100" className="w-full h-full object-cover" /> 
+                        <img src="https://picsum.photos/seed/manga-logo-placeholder/100/100" className="w-full h-full object-cover" /> 
                         {/* Placeholder for specific manga logo */}
                    </div>
                    <div className="flex flex-col">
@@ -83,7 +83,7 @@ export const MangaPage: React.FC<MangaPageProps> = ({ onNavigate }) => {
                     <span>追漫</span>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-gray-200 overflow-hidden cursor-pointer">
-                    <img src="https://picsum.photos/id/64/100/100" className="w-full h-full" />
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Reader" className="w-full h-full" />
                 </div>
                 <button className="bg-[#00AEEC] hover:bg-[#00AEEC]/90 text-white px-4 py-1.5 rounded-md text-sm font-medium flex items-center gap-1 transition-colors">
                     <Upload size={16} />
@@ -186,15 +186,15 @@ export const MangaPage: React.FC<MangaPageProps> = ({ onNavigate }) => {
                               “只有男人才能雌堕，所以雌堕就是最男人的行为！” “婆妈，不会你们魔法少女用的都是鲸之吧！” “异化生物？杀！邪教徒？杀！堕落...”
                           </p>
                           <div className="flex gap-3 mt-auto">
-                              <img src="https://picsum.photos/id/50/50/50" className="w-10 h-12 rounded object-cover opacity-60 hover:opacity-100 transition-opacity" />
-                              <img src="https://picsum.photos/id/51/50/50" className="w-10 h-12 rounded object-cover opacity-60 hover:opacity-100 transition-opacity" />
-                              <img src="https://picsum.photos/id/52/50/50" className="w-10 h-12 rounded object-cover opacity-60 hover:opacity-100 transition-opacity" />
+                              <img src="https://picsum.photos/seed/thumb1/50/50" className="w-10 h-12 rounded object-cover opacity-60 hover:opacity-100 transition-opacity" />
+                              <img src="https://picsum.photos/seed/thumb2/50/50" className="w-10 h-12 rounded object-cover opacity-60 hover:opacity-100 transition-opacity" />
+                              <img src="https://picsum.photos/seed/thumb3/50/50" className="w-10 h-12 rounded object-cover opacity-60 hover:opacity-100 transition-opacity" />
                           </div>
                       </div>
                       
                       {/* Right Image */}
                       <div className="w-[60%] relative overflow-hidden">
-                           <img src="https://picsum.photos/id/1003/800/600" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                           <img src="https://picsum.photos/seed/magical-girl/800/600" className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" />
                            <div className="absolute inset-0 bg-gradient-to-r from-[#2D2F33] to-transparent"></div>
                            
                            {/* Floating Title Art Simulation */}
@@ -210,7 +210,7 @@ export const MangaPage: React.FC<MangaPageProps> = ({ onNavigate }) => {
                       {[1,2,3,4].map((i) => (
                           <div key={i} className="group cursor-pointer">
                               <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-3 shadow-md">
-                                  <img src={`https://picsum.photos/id/${200+i}/300/400`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                                  <img src={`https://picsum.photos/seed/comic-${i}/300/400`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                                   <div className="absolute top-2 right-2 bg-[#FF9212] text-white text-xs px-1.5 py-0.5 rounded shadow-sm">更新</div>
                               </div>
                               <h4 className="font-bold text-gray-800 mb-1 group-hover:text-[#00AEEC] truncate">转生变成史莱姆的日常</h4>

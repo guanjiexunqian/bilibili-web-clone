@@ -2,21 +2,21 @@ import React from 'react';
 import { User, Signal, Trophy, Heart, MessageSquare, MoreHorizontal, MousePointer2 } from 'lucide-react';
 
 const LIVE_SIDEBAR = [
-  { id: 1, title: '新版吸血刀杨戬专精装', streamer: '王者荣耀-老王', viewers: '10.2万', cover: 'https://picsum.photos/id/1055/320/180' },
-  { id: 2, title: '电子榨菜：奥特曼格斗进化', streamer: '复古游戏社', viewers: '5.6万', cover: 'https://picsum.photos/id/1056/320/180' },
-  { id: 3, title: '运动体育：灌篮高手全国大赛', streamer: '篮球部落', viewers: '3.3万', cover: 'https://picsum.photos/id/1057/320/180' },
-  { id: 4, title: 'CSGO 冠军赛决赛重播', streamer: 'FPS赛事中心', viewers: '15.8万', cover: 'https://picsum.photos/id/1058/320/180' },
-  { id: 5, title: '无畏契约：试训中，请看我直播', streamer: '瓦罗兰特', viewers: '8.9万', cover: 'https://picsum.photos/id/1059/320/180' },
+  { id: 1, title: '新版吸血刀杨戬专精装', streamer: '王者荣耀-老王', viewers: '10.2万', cover: 'https://picsum.photos/seed/live-moba/320/180' },
+  { id: 2, title: '电子榨菜：奥特曼格斗进化', streamer: '复古游戏社', viewers: '5.6万', cover: 'https://picsum.photos/seed/live-retro/320/180' },
+  { id: 3, title: '运动体育：灌篮高手全国大赛', streamer: '篮球部落', viewers: '3.3万', cover: 'https://picsum.photos/seed/live-sport/320/180' },
+  { id: 4, title: 'CSGO 冠军赛决赛重播', streamer: 'FPS赛事中心', viewers: '15.8万', cover: 'https://picsum.photos/seed/live-fps/320/180' },
+  { id: 5, title: '无畏契约：试训中，请看我直播', streamer: '瓦罗兰特', viewers: '8.9万', cover: 'https://picsum.photos/seed/live-valorant/320/180' },
 ];
 
 const RECOMMENDED_ZONES = [
-  { name: '网游', icon: 'https://picsum.photos/id/100/100/100', active: true },
-  { name: '手游', icon: 'https://picsum.photos/id/101/100/100', active: false },
-  { name: '单机游戏', icon: 'https://picsum.photos/id/102/100/100', active: false },
-  { name: '娱乐', icon: 'https://picsum.photos/id/103/100/100', active: false },
-  { name: '电台', icon: 'https://picsum.photos/id/104/100/100', active: false },
-  { name: '虚拟主播', icon: 'https://picsum.photos/id/105/100/100', active: false },
-  { name: '互动玩法', icon: 'https://picsum.photos/id/106/100/100', active: false },
+  { name: '网游', icon: 'https://picsum.photos/seed/icon-mmo/100/100', active: true },
+  { name: '手游', icon: 'https://picsum.photos/seed/icon-mobile/100/100', active: false },
+  { name: '单机游戏', icon: 'https://picsum.photos/seed/icon-console/100/100', active: false },
+  { name: '娱乐', icon: 'https://picsum.photos/seed/icon-ent/100/100', active: false },
+  { name: '电台', icon: 'https://picsum.photos/seed/icon-radio/100/100', active: false },
+  { name: '虚拟主播', icon: 'https://picsum.photos/seed/icon-vtuber/100/100', active: false },
+  { name: '互动玩法', icon: 'https://picsum.photos/seed/icon-play/100/100', active: false },
 ];
 
 const SUB_NAV = ["首页", "直播", "网游", "手游", "单机游戏", "虚拟主播", "娱乐", "电台", "赛事", "聊天室", "生活", "知识", "帮我玩", "互动玩法", "购物"];
@@ -36,7 +36,7 @@ export const LivePage: React.FC = () => {
       
       {/* Background Banner - Simulating the purple/galaxy theme from the screenshot */}
       <div className="absolute top-0 left-0 w-full h-[600px] z-0 overflow-hidden">
-         <img src="https://picsum.photos/id/1048/1920/800" alt="bg" className="w-full h-full object-cover filter blur-sm brightness-75" />
+         <img src="https://picsum.photos/seed/galaxy-background/1920/800" alt="bg" className="w-full h-full object-cover filter blur-sm brightness-75" />
          <div className="absolute inset-0 bg-gradient-to-b from-purple-900/40 via-purple-900/20 to-[#F6F7F8]"></div>
       </div>
 
@@ -65,7 +65,7 @@ export const LivePage: React.FC = () => {
             
             {/* Left: Main Player */}
             <div className="flex-1 bg-black rounded-xl overflow-hidden shadow-2xl relative group">
-                <img src="https://picsum.photos/id/1053/1200/675" className="w-full h-full object-cover opacity-90" />
+                <img src="https://picsum.photos/seed/live-stream-main/1200/675" className="w-full h-full object-cover opacity-90" />
                 
                 {/* Simulated UI Overlay */}
                 <div className="absolute top-4 left-4 text-white drop-shadow-md">
@@ -131,7 +131,7 @@ export const LivePage: React.FC = () => {
                 <div className="flex items-center gap-3 cursor-pointer group">
                    <div className="relative">
                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#FB7299] p-0.5">
-                           <img src="https://picsum.photos/id/64/100/100" className="w-full h-full rounded-full object-cover" />
+                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" className="w-full h-full rounded-full object-cover" />
                        </div>
                        <div className="absolute -bottom-1 -right-1 bg-[#FB7299] rounded-full p-0.5 border-2 border-white">
                            <Signal size={8} className="text-white" />
@@ -145,7 +145,7 @@ export const LivePage: React.FC = () => {
                  <div className="flex items-center gap-3 cursor-pointer group">
                    <div className="relative">
                        <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-[#FB7299] p-0.5">
-                           <img src="https://picsum.photos/id/65/100/100" className="w-full h-full rounded-full object-cover" />
+                           <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Aneka" className="w-full h-full rounded-full object-cover" />
                        </div>
                         <div className="absolute -bottom-1 -right-1 bg-[#FB7299] rounded-full p-0.5 border-2 border-white">
                            <Signal size={8} className="text-white" />
@@ -167,7 +167,7 @@ export const LivePage: React.FC = () => {
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
                 {RECOMMENDED_ZONES.map((zone, idx) => (
                     <div key={idx} className="bg-white rounded-lg p-4 flex flex-col items-center gap-2 shadow-sm hover:shadow-md cursor-pointer transition-shadow">
-                        <img src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${zone.name}`} className="w-12 h-12 mb-1" />
+                        <img src={`https://api.dicebear.com/7.x/identicon/svg?seed=${zone.name}`} className="w-12 h-12 mb-1" />
                         <span className="text-sm font-medium text-gray-700">{zone.name}</span>
                         <span className="text-xs text-[#00AEEC]">寻找心动</span>
                     </div>

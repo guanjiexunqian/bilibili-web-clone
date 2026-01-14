@@ -16,13 +16,13 @@ const HOT_SEARCH = [
 
 const STORY_CIRCLES = [
   { name: '全部动态', icon: 'https://picsum.photos/id/100/50/50', active: true },
-  { name: '大佬何金银', icon: 'https://picsum.photos/id/101/50/50', active: false },
-  { name: '秋芝2046', icon: 'https://picsum.photos/id/102/50/50', active: false },
-  { name: 'IT咖啡馆', icon: 'https://picsum.photos/id/103/50/50', active: false },
-  { name: '鬼叔怪谈', icon: 'https://picsum.photos/id/104/50/50', active: false },
-  { name: '玄离199', icon: 'https://picsum.photos/id/105/50/50', active: false },
-  { name: '小兔崽2', icon: 'https://picsum.photos/id/106/50/50', active: false },
-  { name: 'Xuan_酱', icon: 'https://picsum.photos/id/107/50/50', active: false },
+  { name: '大佬何金银', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=King', active: false },
+  { name: '秋芝2046', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Autumn', active: false },
+  { name: 'IT咖啡馆', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Coffee', active: false },
+  { name: '鬼叔怪谈', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Ghost', active: false },
+  { name: '玄离199', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Xuan', active: false },
+  { name: '小兔崽2', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Rabbit', active: false },
+  { name: 'Xuan_酱', icon: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sauce', active: false },
 ];
 
 export const DynamicPage: React.FC = () => {
@@ -35,7 +35,7 @@ export const DynamicPage: React.FC = () => {
           {/* User Card */}
           <div className="bg-white rounded-lg p-6 flex flex-col items-center shadow-sm">
              <div className="w-[72px] h-[72px] rounded-full overflow-hidden border border-gray-100 mb-3">
-                <img src="https://picsum.photos/id/64/200/200" className="w-full h-full object-cover" />
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=MyUser" className="w-full h-full object-cover" />
              </div>
              <div className="font-bold text-[16px] mb-1 flex items-center gap-1">
                 观察寻干 
@@ -68,7 +68,7 @@ export const DynamicPage: React.FC = () => {
              <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 cursor-pointer group">
                    <div className="w-10 h-10 rounded-full border-[2px] border-[#FB7299] p-[1px]">
-                      <img src="https://picsum.photos/id/77/100/100" className="w-full h-full rounded-full object-cover" />
+                      <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Val" className="w-full h-full rounded-full object-cover" />
                    </div>
                    <div className="flex-1 min-w-0">
                       <div className="text-[13px] font-medium truncate group-hover:text-[#00AEEC]">无畏契约赛事</div>
@@ -78,7 +78,7 @@ export const DynamicPage: React.FC = () => {
                 </div>
                  <div className="flex items-center gap-2 cursor-pointer group">
                    <div className="w-10 h-10 rounded-full border-[2px] border-[#FB7299] p-[1px]">
-                      <img src="https://picsum.photos/id/78/100/100" className="w-full h-full rounded-full object-cover" />
+                      <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Turtle" className="w-full h-full rounded-full object-cover" />
                    </div>
                    <div className="flex-1 min-w-0">
                       <div className="text-[13px] font-medium truncate group-hover:text-[#00AEEC]">龟龟奎奎</div>
@@ -124,7 +124,7 @@ export const DynamicPage: React.FC = () => {
                     <div className={`w-[50px] h-[50px] rounded-full p-[2px] ${item.active ? 'bg-[#00AEEC]' : 'bg-transparent border border-transparent hover:border-gray-200'}`}>
                         <div className="w-full h-full bg-white rounded-full flex items-center justify-center overflow-hidden">
                            {item.name === '全部动态' ? (
-                               <img src="https://picsum.photos/id/10/100/100" className="w-full h-full object-cover p-1" /> // Placeholder for the fan icon
+                               <img src="https://picsum.photos/seed/fan-icon/100/100" className="w-full h-full object-cover p-1" /> // Placeholder for the fan icon
                            ) : (
                                <img src={item.icon} className="w-full h-full object-cover" />
                            )}
@@ -152,7 +152,7 @@ export const DynamicPage: React.FC = () => {
               {/* Header */}
               <div className="flex justify-between items-start mb-3">
                  <div className="flex gap-3">
-                    <img src="https://picsum.photos/id/200/50/50" className="w-12 h-12 rounded-full border border-gray-100" />
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=PostUser" className="w-12 h-12 rounded-full border border-gray-100" />
                     <div className="flex flex-col justify-center">
                        <div className="text-[15px] font-bold text-[#FB7299] cursor-pointer hover:underline">话漫人儿</div>
                        <div className="text-[12px] text-gray-400 flex items-center gap-2">
@@ -218,7 +218,7 @@ export const DynamicPage: React.FC = () => {
         <div className="w-[300px] shrink-0 flex flex-col gap-3">
            {/* Community Center Banner */}
            <div className="w-full rounded-lg overflow-hidden shadow-sm cursor-pointer">
-              <img src="https://picsum.photos/id/2/600/350" className="w-full h-auto object-cover" />
+              <img src="https://picsum.photos/seed/community-banner/600/350" className="w-full h-auto object-cover" />
            </div>
 
            {/* Hot Search */}

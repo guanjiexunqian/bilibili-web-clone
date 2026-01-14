@@ -9,12 +9,12 @@ interface HeaderProps {
 }
 
 const watchingList = [
-  { title: "葬送的芙莉莲", desc: "名为人生的童话", img: "https://picsum.photos/id/1025/400/220" },
-  { title: "药屋少女的呢喃", desc: "后宫解谜破案", img: "https://picsum.photos/id/1024/400/220" },
-  { title: "我独自升级", desc: "最强猎人觉醒", img: "https://picsum.photos/id/1023/400/220" },
-  { title: "迷宫饭", desc: "舌尖上的地下城", img: "https://picsum.photos/id/1022/400/220" },
-  { title: "物理魔法使马修", desc: "一拳超人哈利版", img: "https://picsum.photos/id/1021/400/220" },
-  { title: "我推的孩子", desc: "演艺圈的谎言", img: "https://picsum.photos/id/1020/400/220" },
+  { title: "葬送的芙莉莲", desc: "名为人生的童话", img: "https://picsum.photos/seed/frieren/400/220" },
+  { title: "药屋少女的呢喃", desc: "后宫解谜破案", img: "https://picsum.photos/seed/apothecary/400/220" },
+  { title: "我独自升级", desc: "最强猎人觉醒", img: "https://picsum.photos/seed/sololeveling/400/220" },
+  { title: "迷宫饭", desc: "舌尖上的地下城", img: "https://picsum.photos/seed/dungeon-food/400/220" },
+  { title: "物理魔法使马修", desc: "一拳超人哈利版", img: "https://picsum.photos/seed/mashle/400/220" },
+  { title: "我推的孩子", desc: "演艺圈的谎言", img: "https://picsum.photos/seed/oshinoko/400/220" },
 ];
 
 export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigate, currentPage }) => {
@@ -83,9 +83,9 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
       <div className="absolute inset-0 z-0 overflow-hidden">
         {/* Use a specific anime-style landscape placeholder to match the vibe */}
         <img 
-          src="https://picsum.photos/id/292/1920/300" 
+          src="https://picsum.photos/seed/bilibili-banner-art/1920/300" 
           alt="Banner" 
-          className="w-full h-full object-cover object-top filter brightness-95"
+          className="w-full h-full object-cover object-center filter brightness-95"
         />
         {/* Gradient overlay for text readability - stronger at top */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-transparent opacity-90"></div>
@@ -307,7 +307,7 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
           <div className="flex items-center gap-2 text-[11px] text-white">
             <div className="flex flex-col items-center cursor-pointer min-w-[50px]">
                <div className="w-[38px] h-[38px] rounded-full bg-gray-200 overflow-hidden border-[2px] border-white/50 hover:border-white transition-colors shadow-md">
-                   <img src="https://picsum.photos/id/64/100/100" alt="Avatar" />
+                   <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Avatar" />
                </div>
             </div>
             

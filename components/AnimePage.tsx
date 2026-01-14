@@ -3,9 +3,9 @@ import { ChevronRight, Calendar, PlayCircle, Clock } from 'lucide-react';
 import { Carousel } from './Carousel';
 
 const ANIME_CAROUSEL = [
-  { id: 'a1', title: '葬送的芙莉莲：旅途的终点是起点', imageUrl: 'https://picsum.photos/id/1015/1200/400', color: '#333' },
-  { id: 'a2', title: '咒术回战：涩谷事变', imageUrl: 'https://picsum.photos/id/1016/1200/400', color: '#333' },
-  { id: 'a3', title: '间谍过家家 Season 2', imageUrl: 'https://picsum.photos/id/1018/1200/400', color: '#333' },
+  { id: 'a1', title: '葬送的芙莉莲：旅途的终点是起点', imageUrl: 'https://picsum.photos/seed/anime-frieren/1200/400', color: '#333' },
+  { id: 'a2', title: '咒术回战：涩谷事变', imageUrl: 'https://picsum.photos/seed/anime-jujutsu/1200/400', color: '#333' },
+  { id: 'a3', title: '间谍过家家 Season 2', imageUrl: 'https://picsum.photos/seed/anime-spy/1200/400', color: '#333' },
 ];
 
 const WEEK_DAYS = [
@@ -19,12 +19,12 @@ const WEEK_DAYS = [
 ];
 
 const RECENT_UPDATES = [
-  { title: '实吉小姐想对布丁君说教', ep: '第12话', time: '10:00', cover: 'https://picsum.photos/id/200/300/170' },
-  { title: '为了在异世界也能抚摸毛茸茸', ep: '第3话', time: '12:30', cover: 'https://picsum.photos/id/201/300/170' },
-  { title: '反派千金等级99', ep: '第5话', time: '18:00', cover: 'https://picsum.photos/id/202/300/170' },
-  { title: '迷宫饭', ep: '第8话', time: '20:00', cover: 'https://picsum.photos/id/203/300/170' },
-  { title: '金属口红', ep: '第2话', time: '21:30', cover: 'https://picsum.photos/id/204/300/170' },
-  { title: '战国妖狐', ep: '第11话', time: '23:00', cover: 'https://picsum.photos/id/206/300/170' },
+  { title: '实吉小姐想对布丁君说教', ep: '第12话', time: '10:00', cover: 'https://picsum.photos/seed/anime-romance/300/170' },
+  { title: '为了在异世界也能抚摸毛茸茸', ep: '第3话', time: '12:30', cover: 'https://picsum.photos/seed/anime-isekai/300/170' },
+  { title: '反派千金等级99', ep: '第5话', time: '18:00', cover: 'https://picsum.photos/seed/anime-villainess/300/170' },
+  { title: '迷宫饭', ep: '第8话', time: '20:00', cover: 'https://picsum.photos/seed/anime-food/300/170' },
+  { title: '金属口红', ep: '第2话', time: '21:30', cover: 'https://picsum.photos/seed/anime-scifi/300/170' },
+  { title: '战国妖狐', ep: '第11话', time: '23:00', cover: 'https://picsum.photos/seed/anime-youkai/300/170' },
 ];
 
 const CATEGORY_ICONS = [
@@ -67,7 +67,7 @@ export const AnimePage: React.FC = () => {
               {[1, 2, 3, 4, 5, 6].map((i) => (
                 <div key={i} className="flex gap-3 group cursor-pointer">
                   <div className="w-24 h-14 rounded-md overflow-hidden shrink-0">
-                    <img src={`https://picsum.photos/id/${300+i}/200/120`} className="w-full h-full object-cover" />
+                    <img src={`https://picsum.photos/seed/anime-rec-${i}/200/120`} className="w-full h-full object-cover" />
                   </div>
                   <div className="flex flex-col justify-between py-0.5">
                     <h4 className="text-[13px] font-medium text-gray-800 leading-tight line-clamp-2 group-hover:text-[#00AEEC] transition-colors">
@@ -143,7 +143,7 @@ export const AnimePage: React.FC = () => {
             {Array.from({ length: 10 }).map((_, i) => (
                <div key={i} className="group cursor-pointer">
                   <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-2 shadow-md">
-                     <img src={`https://picsum.photos/id/${400+i}/300/400`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                     <img src={`https://picsum.photos/seed/anime-editor-${i}/300/400`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
                      <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
                      <span className="absolute bottom-2 left-2 text-white text-[12px] flex items-center gap-1">
                         <PlayCircle size={12} /> {Math.floor(Math.random() * 500)}万

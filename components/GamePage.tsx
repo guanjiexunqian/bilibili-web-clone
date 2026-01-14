@@ -10,29 +10,29 @@ const GAME_NAV = ["首页", "排行榜", "发现", "WIKI", "大会员礼包", "�
 const HERO_GAME = {
   title: "原神",
   desc: "全新五星角色「哥伦比娅」登场",
-  icon: "https://picsum.photos/id/1047/100/100",
-  bg: "https://picsum.photos/id/1049/1920/600",
+  icon: "https://picsum.photos/seed/genshin-icon/100/100",
+  bg: "https://picsum.photos/seed/genshin-landscape/1920/600",
 };
 
 const HISTORY_LIST = [
-  { type: '最近在玩', name: '魔法工艺', time: '2025年12月23日登录', icon: 'https://picsum.photos/id/50/50/50', btn: '下载', active: true },
-  { type: '下载历史', name: '魔法工艺', time: '2025年12月23日下载', icon: 'https://picsum.photos/id/50/50/50', btn: '下载', active: false },
-  { type: '浏览历史', name: '魔法工艺', time: '2025年12月23日看过', icon: 'https://picsum.photos/id/50/50/50', btn: '下载', active: false },
+  { type: '最近在玩', name: '魔法工艺', time: '2025年12月23日登录', icon: 'https://picsum.photos/seed/magic-craft/50/50', btn: '下载', active: true },
+  { type: '下载历史', name: '魔法工艺', time: '2025年12月23日下载', icon: 'https://picsum.photos/seed/magic-craft/50/50', btn: '下载', active: false },
+  { type: '浏览历史', name: '魔法工艺', time: '2025年12月23日看过', icon: 'https://picsum.photos/seed/magic-craft/50/50', btn: '下载', active: false },
 ];
 
 const RECOMMENDED_GAMES = [
-  { title: "【临行事项】现已开启!", tag: "活动", tagColor: "#FF9212", desc: "10次抽取必得5星武器", img: "https://picsum.photos/id/111/300/180" },
-  { title: "绯月絮语", tag: "新游榜第2名", tagColor: "#FA5A57", rating: 8.7, desc: "放置 · 百合", img: "https://picsum.photos/id/112/300/180" },
-  { title: "风之痕迹", tag: "新游榜第5名", tagColor: "#FA5A57", rating: 6.9, desc: "角色扮演 · 冒险", img: "https://picsum.photos/id/113/300/180" },
-  { title: "鹅鸭杀", tag: "官B同服", tagColor: "#FA5A57", rating: 7.4, desc: "策略 · 推理", img: "https://picsum.photos/id/114/300/180" },
-  { title: "境界 刀鸣", tag: "高分游戏", tagColor: "#FF9212", rating: 8.3, desc: "动作 · ARPG", img: "https://picsum.photos/id/115/300/180" },
+  { title: "【临行事项】现已开启!", tag: "活动", tagColor: "#FF9212", desc: "10次抽取必得5星武器", img: "https://picsum.photos/seed/game-event/300/180" },
+  { title: "绯月絮语", tag: "新游榜第2名", tagColor: "#FA5A57", rating: 8.7, desc: "放置 · 百合", img: "https://picsum.photos/seed/moon-whisper/300/180" },
+  { title: "风之痕迹", tag: "新游榜第5名", tagColor: "#FA5A57", rating: 6.9, desc: "角色扮演 · 冒险", img: "https://picsum.photos/seed/wind-trace/300/180" },
+  { title: "鹅鸭杀", tag: "官B同服", tagColor: "#FA5A57", rating: 7.4, desc: "策略 · 推理", img: "https://picsum.photos/seed/duck-game/300/180" },
+  { title: "境界 刀鸣", tag: "高分游戏", tagColor: "#FF9212", rating: 8.3, desc: "动作 · ARPG", img: "https://picsum.photos/seed/bleach-game/300/180" },
 ];
 
 const HOT_GAMES_LIST = [
-  { name: "三国：谋定天下 (PC版)", tag: "高分游戏", score: 9.2, type: "策略 · 职业", img: "https://picsum.photos/id/200/280/160" },
-  { name: "名将杀 (PC版)", tag: "官B同服", score: 8.6, type: "卡牌 · 名将杀", img: "https://picsum.photos/id/201/280/160" },
-  { name: "魔法工艺 手游来啦", tag: "新游榜第6名", score: 8.1, type: "类Rogue", img: "https://picsum.photos/id/202/280/160" },
-  { name: "九牧之野", tag: "低分保护", score: 6.7, type: "策略 · RTS", img: "https://picsum.photos/id/203/280/160" },
+  { name: "三国：谋定天下 (PC版)", tag: "高分游戏", score: 9.2, type: "策略 · 职业", img: "https://picsum.photos/seed/three-kingdoms/280/160" },
+  { name: "名将杀 (PC版)", tag: "官B同服", score: 8.6, type: "卡牌 · 名将杀", img: "https://picsum.photos/seed/card-battle/280/160" },
+  { name: "魔法工艺 手游来啦", tag: "新游榜第6名", score: 8.1, type: "类Rogue", img: "https://picsum.photos/seed/magic-rogue/280/160" },
+  { name: "九牧之野", tag: "低分保护", score: 6.7, type: "策略 · RTS", img: "https://picsum.photos/seed/rts-game/280/160" },
 ];
 
 export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
@@ -79,7 +79,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
             {/* Right */}
             <div className="flex items-center gap-6 text-[12px] text-gray-300">
                <div className="w-9 h-9 rounded-full bg-gray-500 overflow-hidden border border-gray-400">
-                  <img src="https://picsum.photos/id/64/100/100" />
+                  <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Gamer" />
                </div>
                <div className="flex flex-col items-center gap-0.5 cursor-pointer hover:text-white">
                   <Gamepad2 size={20} />
@@ -270,7 +270,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
                   {HOT_GAMES_LIST.map((game, idx) => (
                      <div key={idx} className="flex gap-4 group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
                         <div className="relative w-[140px] h-[80px] rounded-md overflow-hidden shrink-0">
-                           <img src={`https://picsum.photos/id/${210+idx}/280/160`} className="w-full h-full object-cover" />
+                           <img src={`https://picsum.photos/seed/pc-game-${idx}/280/160`} className="w-full h-full object-cover" />
                            {idx === 0 && <span className="absolute top-0 left-0 bg-[#FF9212] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-br">1</span>}
                         </div>
                          <div className="flex flex-col justify-between py-1">
@@ -298,7 +298,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
                   {HOT_GAMES_LIST.map((game, idx) => (
                      <div key={idx} className="flex gap-4 group cursor-pointer p-2 rounded-lg hover:bg-gray-50 transition-colors">
                         <div className="relative w-[140px] h-[80px] rounded-md overflow-hidden shrink-0">
-                           <img src={`https://picsum.photos/id/${220+idx}/280/160`} className="w-full h-full object-cover" />
+                           <img src={`https://picsum.photos/seed/preorder-${idx}/280/160`} className="w-full h-full object-cover" />
                            {idx === 0 && <span className="absolute top-0 left-0 bg-[#FF9212] text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-br">1</span>}
                         </div>
                          <div className="flex flex-col justify-between py-1">
