@@ -4,8 +4,8 @@ import { Search, Upload, Mail, Lightbulb, Star, Clock, MonitorPlay, Download, Hi
 interface HeaderProps {
   onSearch: (query: string) => void;
   isSearching: boolean;
-  onNavigate: (page: 'home' | 'anime' | 'live' | 'game') => void;
-  currentPage: 'home' | 'anime' | 'live' | 'game';
+  onNavigate: (page: 'home' | 'anime' | 'live' | 'game' | 'manga' | 'dynamic') => void;
+  currentPage: 'home' | 'anime' | 'live' | 'game' | 'manga' | 'dynamic';
 }
 
 const watchingList = [
@@ -269,8 +269,14 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
               >
                 游戏中心
               </a>
+              <a 
+                 href="#" 
+                 className={`hover:text-white/80 transition drop-shadow-md ${currentPage === 'manga' ? 'text-[#FB7299] font-bold drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]' : ''}`}
+                 onClick={(e) => { e.preventDefault(); onNavigate('manga'); }}
+              >
+                漫画
+              </a>
               <a href="#" className="hover:text-white/80 transition drop-shadow-md">会员购</a>
-              <a href="#" className="hover:text-white/80 transition drop-shadow-md">漫画</a>
               <a href="#" className="hover:text-white/80 transition drop-shadow-md">赛事</a>
               <a href="#" className="hover:text-white/80 transition flex items-center gap-1 drop-shadow-md"><Download size={14}/> 下载客户端</a>
             </nav>
@@ -317,7 +323,10 @@ export const Header: React.FC<HeaderProps> = ({ onSearch, isSearching, onNavigat
               <span className="drop-shadow-md transform scale-90">消息</span>
             </div>
 
-            <div className="flex flex-col items-center cursor-pointer hover:text-white/80 min-w-[40px] gap-1 relative">
+            <div 
+                className="flex flex-col items-center cursor-pointer hover:text-white/80 min-w-[40px] gap-1 relative"
+                onClick={() => onNavigate('dynamic')}
+            >
               <Palette size={22} className="drop-shadow-md"/> {/* Using Palette as proxy for 'Dynamic' windmill icon */}
               <span className="absolute -top-1 right-2 bg-[#FA5A57] text-white text-[9px] px-1 rounded-full h-[14px] flex items-center justify-center border border-white">2</span>
               <span className="drop-shadow-md transform scale-90">动态</span>

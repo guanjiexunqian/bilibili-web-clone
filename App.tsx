@@ -6,12 +6,14 @@ import { Carousel } from './components/Carousel';
 import { AnimePage } from './components/AnimePage';
 import { LivePage } from './components/LivePage';
 import { GamePage } from './components/GamePage';
+import { MangaPage } from './components/MangaPage';
+import { DynamicPage } from './components/DynamicPage';
 import { INITIAL_VIDEOS, CAROUSEL_ITEMS } from './constants';
 import { Video } from './types';
 import { searchVideosWithGemini } from './services/geminiService';
 import { RefreshCcw, ArrowUp, MessageCircle } from 'lucide-react';
 
-type Page = 'home' | 'anime' | 'live' | 'game';
+type Page = 'home' | 'anime' | 'live' | 'game' | 'manga' | 'dynamic';
 
 const App: React.FC = () => {
   const [videos, setVideos] = useState<Video[]>(INITIAL_VIDEOS);
@@ -45,8 +47,8 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white font-sans text-gray-900 pb-12">
-      {/* Hide global header for GamePage because it has its own custom full-width header */}
-      {currentPage !== 'game' && (
+      {/* Hide global header for GamePage and MangaPage because they have custom headers */}
+      {currentPage !== 'game' && currentPage !== 'manga' && (
         <Header 
           onSearch={handleSearch} 
           isSearching={isSearching} 
@@ -55,10 +57,10 @@ const App: React.FC = () => {
         />
       )}
       
-      <main className={`max-w-[1700px] mx-auto relative ${currentPage === 'game' ? 'max-w-none' : ''}`}>
+      <main className={`max-w-[1700px] mx-auto relative ${currentPage === 'game' || currentPage === 'manga' ? 'max-w-none' : ''}`}>
         {currentPage === 'home' && (
           <>
-            <CategoryNav />
+            <CategoryNav onNavigate={navigateTo} />
             
             {/* Main Content Grid - 5 Columns specifically */}
             <div className="px-4 md:px-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-8 animate-fade-in">
@@ -106,6 +108,16 @@ const App: React.FC = () => {
 
         {currentPage === 'game' && (
           <GamePage onNavigate={navigateTo} />
+        )}
+
+        {currentPage === 'manga' && (
+          <MangaPage onNavigate={navigateTo} />
+        )}
+        
+        {currentPage === 'dynamic' && (
+          <div className="-mt-4">
+             <DynamicPage />
+          </div>
         )}
 
         {/* Floating Action Buttons */}
