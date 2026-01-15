@@ -15,12 +15,16 @@ import { Elevator } from './components/Elevator';
 import { INITIAL_VIDEOS, CAROUSEL_ITEMS, generateVideos } from './constants';
 import { Video, Page } from './types';
 import { searchVideosWithGemini } from './services/geminiService';
-import { fetchRealBilibiliData } from './services/bilibiliService'; // Import the new service
+import { fetchRealBilibiliData } from './services/bilibiliService';
 import { RefreshCw } from 'lucide-react';
 
 const App: React.FC = () => {
-  const [videos, setVideos] = useState<Video[]>(INITIAL_VIDEOS);
+  // Start empty to show skeletons first (Better UX than showing mock data then swapping)
+  const [videos, setVideos] = useState<Video[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  // Add specific state for initial data loading
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -33,14 +37,27 @@ const App: React.FC = () => {
   // === Effect: Fetch Real Bilibili Data on Mount ===
   useEffect(() => {
     const initRealData = async () => {
-        const realData = await fetchRealBilibiliData();
-        if (realData.length > 0) {
-            setVideos(realData);
+        setIsInitialLoading(true);
+        try {
+            // STEP 4 COMPLETE: This function acts as our "Python Backend" proxy
+            const realData = await fetchRealBilibiliData();
+            
+            if (realData && realData.length > 0) {
+                setVideos(realData);
+            } else {
+                // Fallback: If API fails or proxies are down, use high-quality Mock Data
+                console.warn("API fallback triggered, using local mock data.");
+                setVideos(INITIAL_VIDEOS);
+            }
+        } catch (error) {
+            console.error("Data load failed, falling back:", error);
+            setVideos(INITIAL_VIDEOS);
+        } finally {
+            setIsInitialLoading(false);
         }
     };
     
     // We only fetch real data if we are on the home page and not searching
-    // This replaces the "Mock Data" with "Real Data" automatically
     initRealData();
   }, []);
 
@@ -68,7 +85,6 @@ const App: React.FC = () => {
     const realData = await fetchRealBilibiliData();
     if (realData.length > 0) {
          // Shuffle slightly to simulate refresh if needed, or just set new data
-         // Since API data is static for some time, let's just reverse it or mix it for visual change
          setVideos(realData.sort(() => Math.random() - 0.5));
     } else {
          const freshVideos = generateVideos(20);
@@ -85,8 +101,8 @@ const App: React.FC = () => {
     setCurrentPage(page);
     window.scrollTo({ top: 0, behavior: 'auto' });
     // Reset videos to initial state if navigating back to home (optional preference)
-    if (page === 'home' && videos.length !== INITIAL_VIDEOS.length) {
-       // Optional: setVideos(INITIAL_VIDEOS); 
+    if (page === 'home' && videos.length === 0) {
+        setVideos(INITIAL_VIDEOS); 
     }
   };
 
@@ -98,16 +114,16 @@ const App: React.FC = () => {
 
   // Infinite Scroll Logic
   const handleLoadMore = useCallback(() => {
-     if (isLoadingMore || isSearching) return;
+     if (isLoadingMore || isSearching || isInitialLoading) return;
      
      setIsLoadingMore(true);
-     // Simulate network delay
+     // Simulate network delay for infinite scroll (Mock data for subsequent pages is fine)
      setTimeout(() => {
         const moreVideos = generateVideos(15, videos.length);
         setVideos(prev => [...prev, ...moreVideos]);
         setIsLoadingMore(false);
      }, 600);
-  }, [isLoadingMore, isSearching, videos.length]);
+  }, [isLoadingMore, isSearching, isInitialLoading, videos.length]);
 
   useEffect(() => {
     // Only enable infinite scroll on Home or Search page (Search usually has pagination but infinite scroll works for this demo)
@@ -183,8 +199,8 @@ const App: React.FC = () => {
                     <VideoCard key={video.id} video={video} onClick={handleVideoSelect} />
                   ))}
                   
-                   {/* Loading Skeletons */}
-                   {isSearching && Array.from({ length: 10 }).map((_, i) => (
+                   {/* Loading Skeletons (Show during initial load OR search) */}
+                   {(isSearching || isInitialLoading) && Array.from({ length: 10 }).map((_, i) => (
                      <div key={`skel-${i}`} className="animate-pulse flex flex-col gap-2">
                        <div className="bg-gray-200 aspect-video rounded-lg w-full"></div>
                        <div className="flex gap-2 mt-1">
