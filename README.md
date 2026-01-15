@@ -1,20 +1,43 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
-# Run and deploy your AI Studio app
-
-This contains everything you need to run your app locally.
-
-View your app in AI Studio: https://ai.studio/apps/drive/1RrJ6SQB4WLcMZg9vcN86IHgUvM2d1Yd6
-
-## Run Locally
-
-**Prerequisites:**  Node.js
-
-
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+项目完整复刻 B 站核心内容板块的前端页面结构，覆盖主流内容场景：
+1. 内容分区页面
+动漫页（AnimePage.tsx）：复刻 B 站动漫分区页面布局，包含番剧列表、新番推荐、动漫分类等前端结构；
+游戏页（GamePage.tsx）：还原 B 站游戏分区页面，展示游戏资讯、手游推荐、游戏活动等板块布局；
+直播页（LivePage.tsx）：实现 B 站直播分区前端布局，包含直播封面、主播信息、分类标签等元素；
+漫画页（MangaPage.tsx）：复刻 B 站漫画分区页面，支持漫画封面展示、分类筛选等前端交互；
+动态页（DynamicPage.tsx）：还原 B 站动态页布局，展示 UP 主动态、动态互动（点赞 / 评论）等前端结构。
+2. 核心功能页面
+视频播放页（VideoPlayerPage.tsx）：复刻 B 站核心的视频播放页布局，包含播放器容器、视频标题 / UP 主信息、侧边推荐视频、互动按钮（点赞 / 投币 / 收藏）等前端组件；
+搜索页（SearchPage.tsx）：实现 B 站搜索结果页布局，支持搜索关键词展示、结果分类、分页等前端逻辑；
+登录弹窗（LoginModal.tsx）：封装 B 站风格的登录弹窗组件，包含账号密码 / 验证码登录的表单布局与前端交互。
+二、通用组件与交互实现
+项目封装了 B 站风格的通用组件，支撑全页面的交互与视觉还原：
+1. 导航与布局组件
+头部导航（Header.tsx）：还原 B 站顶部导航栏，包含 logo、搜索框、分区导航、用户入口等核心元素；
+分类导航（CategoryNav.tsx）：实现 B 站侧边 / 顶部的内容分类导航，支持分区切换；
+楼层电梯（Elevator.tsx）：复刻 B 站长页面的楼层电梯组件，快速跳转至不同内容板块；
+页脚（Footer.tsx）：还原 B 站页脚布局，包含版权信息、链接导航等元素；
+轮播图（Carousel.tsx）：实现 B 站首页 / 专题页的轮播图效果，支持自动播放、手动切换、指示器展示等交互。
+2. 性能与展示组件
+视频卡片（VideoCard.tsx）：封装 B 站风格的视频卡片组件，展示视频封面、标题、UP 主、播放量等信息；
+懒加载图片（LazyImage.tsx）：优化图片加载性能，针对视频封面、动漫 / 漫画封面等场景实现懒加载，减少首屏资源加载量。
+四、数据请求与工具能力
+1. 服务层封装
+统一请求封装：通过services/目录下的文件封装数据请求逻辑：
+bilibiliService.ts：封装 B 站相关接口的前端请求逻辑（如视频列表、分类数据）；
+animeService.ts：专门封装动漫分区的数据请求（如番剧列表、新番信息）；
+geminiService.ts：对接 Gemini API，集成 AI 相关能力（需配置GEMINI_API_KEY）。
+2. 工具函数
+图片代理（utils/imageProxy.ts）：实现图片代理处理逻辑，解决图片跨域、加载优化等问题，适配 B 站图片资源的展示需求。
+五、本地运行与部署
+项目提供完整的本地运行流程，无需复杂配置：
+环境依赖：仅需 Node.js 环境；
+依赖安装：执行npm install安装所有前端依赖；
+配置项：在.env.local中配置GEMINI_API_KEY（对接 Gemini API 所需）；
+启动项目：执行npm run dev即可本地启动，快速预览 B 站克隆页面。
+核心特点总结
+该项目聚焦B 站前端视觉与基础交互复刻，未包含后端逻辑（无 Python Web 相关实现），核心价值在于：
+完整还原 B 站核心内容分区的页面布局与视觉风格；
+封装通用组件与请求逻辑，具备前端工程化规范（TypeScript/Vite）；
+轻量易部署，本地仅需简单配置即可快速运行。# B 站克隆项目（前端）功能详解
+该项目是B 站前端页面克隆工程，基于 React + TypeScript + Vite 技术栈构建，聚焦复刻 B 站核心前端页面布局与基础交互逻辑，无 Python Web 后端相关实现，以下是项目实际包含的功能（均基于代码库文件结构 / 代码片段梳理）
+制作 人工智能2403 Pythonweb作业
