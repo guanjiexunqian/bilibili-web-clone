@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Search, Gamepad2, Download, Star, Flame, Trophy, ChevronRight, Gift, User, MessageCircle, Settings, Monitor, Smartphone, Calendar, Crown, RefreshCw, Clock, History, Play } from 'lucide-react';
+import { Search, Gamepad2, Download, Star, Flame, Trophy, ChevronRight, Gift, Settings, Monitor, Calendar, Crown, RefreshCw, Smartphone, Award } from 'lucide-react';
 import { LazyImage } from './LazyImage';
-import { HDSLB_IMAGE_POOL } from '../constants';
+import { HDSLB_IMAGE_POOL, GAME_LIBRARY } from '../constants';
 import { Page } from '../types';
 
 interface GamePageProps {
@@ -9,101 +9,97 @@ interface GamePageProps {
 }
 
 // ==================================================================================
-// Mock Data for Game Center
+// Real Data Injection (Replacing Picsum)
 // ==================================================================================
 
 const HERO_SLIDES = [
   { 
     id: 1, 
-    title: "崩坏：星穹铁道", 
-    subtitle: "全新2.0版本「匹诺康尼」现已上线",
-    img: "https://picsum.photos/seed/starrail-hero/1200/500", 
-    bg: "https://picsum.photos/seed/starrail-hero/1200/500?blur=10",
-    color: "#3c2b1a"
+    title: GAME_LIBRARY.wukong.name, 
+    subtitle: "8月20日，重走西游",
+    img: GAME_LIBRARY.wukong.cover, 
+    bg: GAME_LIBRARY.wukong.cover,
+    color: GAME_LIBRARY.wukong.color
   },
   { 
     id: 2, 
-    title: "绝区零", 
-    subtitle: "降噪测试招募开启！",
-    img: "https://picsum.photos/seed/zzz-hero/1200/500", 
-    bg: "https://picsum.photos/seed/zzz-hero/1200/500?blur=10",
-    color: "#ff6600"
+    title: GAME_LIBRARY.starrail.name, 
+    subtitle: "全新2.0版本「匹诺康尼」现已上线",
+    img: GAME_LIBRARY.starrail.cover, 
+    bg: GAME_LIBRARY.starrail.cover,
+    color: GAME_LIBRARY.starrail.color
   },
   { 
     id: 3, 
-    title: "明日方舟", 
-    subtitle: "春节限定活动：怀黍离",
-    img: "https://picsum.photos/seed/arknights-hero/1200/500", 
-    bg: "https://picsum.photos/seed/arknights-hero/1200/500?blur=10",
-    color: "#222"
+    title: GAME_LIBRARY.zzz.name, 
+    subtitle: "降噪测试招募开启！",
+    img: GAME_LIBRARY.zzz.cover, 
+    bg: GAME_LIBRARY.zzz.cover,
+    color: GAME_LIBRARY.zzz.color
   },
   { 
     id: 4, 
-    title: "恋与深空", 
-    subtitle: "3D沉浸恋爱互动手游",
-    img: "https://picsum.photos/seed/love-deep/1200/500", 
-    bg: "https://picsum.photos/seed/love-deep/1200/500?blur=10",
-    color: "#ffb6c1"
+    title: GAME_LIBRARY.arknights.name, 
+    subtitle: "春节限定活动：怀黍离",
+    img: GAME_LIBRARY.arknights.cover, 
+    bg: GAME_LIBRARY.arknights.cover,
+    color: GAME_LIBRARY.arknights.color
   }
 ];
 
-// Expanded Data for Tabs
 const DASHBOARD_DATA = {
   played: [
-    { id: 101, name: '魔法工艺', date: '2025/12/23 登录', icon: 'https://picsum.photos/seed/magic-craft/100/100', btn: '启动', btnType: 'primary' },
-    { id: 102, name: '元梦之星', date: '2025/12/21 登录', icon: 'https://picsum.photos/seed/party-game/100/100', btn: '启动', btnType: 'primary' },
-    { id: 103, name: '崩坏：星穹铁道', date: '2025/12/15 登录', icon: 'https://picsum.photos/seed/star-rail/100/100', btn: '更新', btnType: 'secondary' },
+    { id: 101, name: GAME_LIBRARY.wukong.name, date: '刚刚 登录', icon: GAME_LIBRARY.wukong.icon, btn: '启动', btnType: 'primary' },
+    { id: 102, name: GAME_LIBRARY.lol.name, date: '昨天 登录', icon: GAME_LIBRARY.lol.icon, btn: '启动', btnType: 'primary' },
+    { id: 103, name: GAME_LIBRARY.starrail.name, date: '3天前 登录', icon: GAME_LIBRARY.starrail.icon, btn: '更新', btnType: 'secondary' },
   ],
   download: [
-    { id: 201, name: '绝区零', date: '2025/12/20 下载', icon: 'https://picsum.photos/seed/zzz-game/100/100', btn: '安装', btnType: 'primary' },
-    { id: 202, name: '鸣潮', date: '2025/12/18 下载', icon: 'https://picsum.photos/seed/wuthering/100/100', btn: '安装', btnType: 'primary' },
-    { id: 203, name: '我的世界', date: '2025/11/05 下载', icon: 'https://picsum.photos/seed/minecraft/100/100', btn: '打开', btnType: 'outline' },
+    { id: 201, name: GAME_LIBRARY.zzz.name, date: '12/20 下载', icon: GAME_LIBRARY.zzz.icon, btn: '安装', btnType: 'primary' },
+    { id: 202, name: GAME_LIBRARY.naraka.name, date: '12/18 下载', icon: GAME_LIBRARY.naraka.icon, btn: '安装', btnType: 'primary' },
   ],
   browse: [
-    { id: 301, name: '黑神话：悟空', date: '刚刚看过', icon: 'https://picsum.photos/seed/wukong/100/100', btn: '预约', btnType: 'accent' },
-    { id: 302, name: '碧蓝幻想Relink', date: '10分钟前', icon: 'https://picsum.photos/seed/gbf/100/100', btn: '详情', btnType: 'outline' },
-    { id: 303, name: '女神异闻录：夜幕魅影', date: '1小时前', icon: 'https://picsum.photos/seed/p5x/100/100', btn: '详情', btnType: 'outline' },
+    { id: 301, name: GAME_LIBRARY.genshin.name, date: '刚刚看过', icon: GAME_LIBRARY.genshin.icon, btn: '详情', btnType: 'outline' },
+    { id: 302, name: '碧蓝幻想Relink', date: '10分钟前', icon: "https://i0.hdslb.com/bfs/game/d6023253b8116960f252445a4a58406f36357494.png", btn: '详情', btnType: 'outline' },
   ]
 };
 
-// Expanded Pool for Swap functionality
 const RECOMMENDED_POOL = [
   // Page 1
-  { id: 1, title: "【临行事项】现已开启!", tag: "活动", isActivity: true, desc: "10次抽取必得5星武器", img: "https://picsum.photos/seed/game-event/400/225" },
-  { id: 2, title: "绯月絮语", tag: "新游榜第3名", rating: 8.7, desc: "放置 · 百合", img: "https://picsum.photos/seed/moon-whisper/400/225" },
-  { id: 3, title: "风之痕迹", tag: "新游榜第5名", rating: 6.9, desc: "角色扮演 · 冒险", img: "https://picsum.photos/seed/wind-trace/400/225" },
-  { id: 4, title: "鹅鸭杀", tag: "官B同服", rating: 7.4, desc: "策略 · 推理", img: "https://picsum.photos/seed/duck-game/400/225" },
-  { id: 5, title: "境界 刀鸣", tag: "高分游戏", rating: 8.3, desc: "动作 · ARPG", img: "https://picsum.photos/seed/bleach-game/400/225" },
+  { id: 1, title: "【临行事项】现已开启!", tag: "活动", isActivity: true, desc: "10次抽取必得5星武器", img: "https://i0.hdslb.com/bfs/new_dyn/b45823145d2595085445258414902146445582236.png" },
+  { id: 2, title: GAME_LIBRARY.genshin.name, tag: "新游榜第3名", rating: 8.7, desc: "开放世界 · 冒险", img: GAME_LIBRARY.genshin.cover },
+  { id: 3, title: GAME_LIBRARY.starrail.name, tag: "新游榜第5名", rating: 9.2, desc: "角色扮演 · 银河", img: GAME_LIBRARY.starrail.cover },
+  { id: 4, title: GAME_LIBRARY.lol.name, tag: "官B同服", rating: 7.4, desc: "策略 · 竞技", img: GAME_LIBRARY.lol.cover },
+  { id: 5, title: GAME_LIBRARY.naraka.name, tag: "高分游戏", rating: 8.3, desc: "动作 · 武侠", img: GAME_LIBRARY.naraka.cover },
   // Page 2
-  { id: 6, title: "幻兽帕鲁", tag: "热门游戏", rating: 9.2, desc: "生存 · 建造", img: "https://picsum.photos/seed/palworld/400/225" },
-  { id: 7, title: "女神异闻录：夜幕魅影", tag: "新游榜第1名", rating: 8.8, desc: "RPG · 剧情", img: "https://picsum.photos/seed/p5x-game/400/225" },
-  { id: 8, title: "鸣潮", tag: "预约榜第2名", desc: "开放世界 · 动作", img: "https://picsum.photos/seed/wuthering-waves/400/225" },
-  { id: 9, title: "蓝色协议", tag: "新游期待", rating: 7.5, desc: "MMO · 二次元", img: "https://picsum.photos/seed/blue-protocol/400/225" },
-  { id: 10, title: "泰拉瑞亚", tag: "史低折扣", rating: 9.8, desc: "沙盒 · 冒险", img: "https://picsum.photos/seed/terraria/400/225" },
+  { id: 6, title: GAME_LIBRARY.zzz.name, tag: "热门游戏", rating: 9.2, desc: "动作 · 都市", img: GAME_LIBRARY.zzz.cover },
+  { id: 7, title: "女神异闻录：夜幕魅影", tag: "新游榜第1名", rating: 8.8, desc: "RPG · 剧情", img: HDSLB_IMAGE_POOL.anime[2] },
+  { id: 8, title: GAME_LIBRARY.wukong.name, tag: "预约榜第2名", desc: "动作 · 神话", img: GAME_LIBRARY.wukong.cover },
+  { id: 9, title: "蓝色协议", tag: "新游期待", rating: 7.5, desc: "MMO · 二次元", img: HDSLB_IMAGE_POOL.anime[4] },
+  { id: 10, title: "泰拉瑞亚", tag: "史低折扣", rating: 9.8, desc: "沙盒 · 冒险", img: HDSLB_IMAGE_POOL.gaming[6] },
 ];
 
 const RANKING_HOT = [
-  { rank: 1, name: "原神", tags: ["开放世界", "二次元"], score: 6.4, icon: HDSLB_IMAGE_POOL.gaming[0] },
-  { rank: 2, name: "逆战：未来", tags: ["射击", "机甲"], score: 8.4, icon: HDSLB_IMAGE_POOL.gaming[1] },
-  { rank: 3, name: "空灵诗篇", tags: ["卡牌", "3D"], score: 8.0, icon: HDSLB_IMAGE_POOL.gaming[2] },
-  { rank: 4, name: "明日方舟", tags: ["塔防", "策略"], score: 9.1, icon: HDSLB_IMAGE_POOL.gaming[3] },
-  { rank: 5, name: "绯月絮语", tags: ["放置", "百合"], score: 8.7, icon: HDSLB_IMAGE_POOL.gaming[4] },
+  { rank: 1, name: GAME_LIBRARY.genshin.name, tags: ["开放世界", "二次元"], score: 9.4, icon: GAME_LIBRARY.genshin.icon },
+  { rank: 2, name: GAME_LIBRARY.starrail.name, tags: ["回合制", "策略"], score: 9.8, icon: GAME_LIBRARY.starrail.icon },
+  { rank: 3, name: GAME_LIBRARY.zzz.name, tags: ["动作", "3D"], score: 9.0, icon: GAME_LIBRARY.zzz.icon },
+  { rank: 4, name: GAME_LIBRARY.arknights.name, tags: ["塔防", "策略"], score: 9.1, icon: GAME_LIBRARY.arknights.icon },
+  { rank: 5, name: "碧蓝航线", tags: ["养成", "海战"], score: 8.7, icon: "https://i0.hdslb.com/bfs/game/7b2d56637b512966847846561274647366367756.png" },
 ];
 
 const RANKING_PC = [
-  { rank: 1, name: "原神 (PC版)", tags: ["米哈游", "幻想"], score: 5.8, icon: HDSLB_IMAGE_POOL.gaming[0] },
-  { rank: 2, name: "鸣潮 (PC版)", tags: ["开放世界", "动作"], score: 6.4, icon: HDSLB_IMAGE_POOL.gaming[5] },
-  { rank: 3, name: "绝区零 (PC版)", tags: ["动作", "Roguelike"], score: 6.3, icon: HDSLB_IMAGE_POOL.gaming[6] },
-  { rank: 4, name: "崩坏：星穹铁道", tags: ["回合制", "RPG"], score: 8.2, icon: HDSLB_IMAGE_POOL.gaming[7] },
-  { rank: 5, name: "三国：谋定天下", tags: ["策略", "SLG"], score: 7.5, icon: HDSLB_IMAGE_POOL.gaming[8] },
+  { rank: 1, name: GAME_LIBRARY.wukong.name, tags: ["动作", "神话"], score: 9.9, icon: GAME_LIBRARY.wukong.icon },
+  { rank: 2, name: GAME_LIBRARY.lol.name, tags: ["MOBA", "竞技"], score: 9.4, icon: GAME_LIBRARY.lol.icon },
+  { rank: 3, name: GAME_LIBRARY.naraka.name, tags: ["吃鸡", "武侠"], score: 9.3, icon: GAME_LIBRARY.naraka.icon },
+  { rank: 4, name: "Apex英雄", tags: ["FPS", "战术"], score: 8.2, icon: HDSLB_IMAGE_POOL.gaming[5] },
+  { rank: 5, name: "无畏契约", tags: ["FPS", "射击"], score: 7.5, icon: HDSLB_IMAGE_POOL.gaming[6] },
 ];
 
 const RANKING_PREORDER = [
   { rank: 1, name: "白银之城", tags: ["开放世界", "侦探"], score: 9.7, icon: HDSLB_IMAGE_POOL.anime[0] },
-  { rank: 2, name: "明日方舟：终末地", tags: ["模拟经营", "二次元"], score: 8.1, icon: HDSLB_IMAGE_POOL.anime[1] },
+  { rank: 2, name: "明日方舟：终末地", tags: ["模拟经营", "二次元"], score: 9.1, icon: GAME_LIBRARY.arknights.icon },
   { rank: 3, name: "代号：无限大", tags: ["都市", "开放世界"], score: 9.0, icon: HDSLB_IMAGE_POOL.anime[2] },
-  { rank: 4, name: "诡秘之主", tags: ["RPG", "克苏鲁"], score: 9.5, icon: HDSLB_IMAGE_POOL.anime[3] },
-  { rank: 5, name: "遗忘之海", tags: ["冒险", "解谜"], score: 8.8, icon: HDSLB_IMAGE_POOL.anime[4] },
+  { rank: 4, name: "燕云十六声", tags: ["RPG", "武侠"], score: 9.5, icon: HDSLB_IMAGE_POOL.gaming[0] },
+  { rank: 5, name: "GTA 6", tags: ["冒险", "犯罪"], score: 9.9, icon: HDSLB_IMAGE_POOL.gaming[7] },
 ];
 
 // ==================================================================================
@@ -187,7 +183,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-5 text-gray-300">
              <div className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
                 <div className="w-8 h-8 rounded-full overflow-hidden border border-white/20">
-                    <LazyImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" className="w-full h-full" />
+                    <LazyImage src="https://i2.hdslb.com/bfs/face/d2a95376140fb1e5efbcbed70ef62891a3e5284f.jpg" alt="User" className="w-full h-full" />
                 </div>
              </div>
              <div className="flex flex-col items-center gap-0.5 cursor-pointer hover:text-white group">
@@ -223,10 +219,10 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
          </div>
 
          {/* Content Container */}
-         <div className="relative z-10 max-w-[1400px] mx-auto h-full px-4 pt-6 pb-8 flex gap-4">
+         <div className="relative z-10 max-w-[1400px] mx-auto h-full px-4 pt-6 pb-8 flex flex-col md:flex-row gap-4">
              
              {/* Left: Carousel (75%) */}
-             <div className="flex-1 relative rounded-xl overflow-hidden shadow-2xl border border-white/10">
+             <div className="flex-1 relative rounded-xl overflow-hidden shadow-2xl border border-white/10 bg-black">
                  {HERO_SLIDES.map((slide, idx) => (
                     <div 
                         key={slide.id}
@@ -266,12 +262,12 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
              </div>
 
              {/* Right: User Dashboard (25%) */}
-             <div className="w-[320px] bg-black/40 backdrop-blur-xl rounded-xl border border-white/10 flex flex-col shrink-0">
+             <div className="w-full md:w-[320px] bg-black/40 backdrop-blur-xl rounded-xl border border-white/10 flex flex-col shrink-0">
                  {/* User Info Header */}
                  <div className="p-5 pb-4">
                     <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-full border-2 border-[#00AEEC] p-0.5 cursor-pointer hover:scale-105 transition-transform">
-                            <LazyImage src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="User" className="w-full h-full rounded-full bg-white" />
+                            <LazyImage src="https://i2.hdslb.com/bfs/face/d2a95376140fb1e5efbcbed70ef62891a3e5284f.jpg" alt="User" className="w-full h-full rounded-full bg-white" />
                         </div>
                         <div>
                             <div className="text-white font-bold text-[15px] cursor-pointer hover:text-[#00AEEC]">Bill_Gamer</div>
@@ -371,7 +367,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
                                   活动
                               </span>
                           )}
-                          {!game.isActivity && game.rating >= 9 && (
+                          {!game.isActivity && game.rating && game.rating >= 9 && (
                               <span className="absolute top-0 left-0 bg-[#FA5A57] text-white text-[11px] font-bold px-2 py-0.5 rounded-br-lg z-10 shadow-sm">
                                   热门
                               </span>
@@ -396,7 +392,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
                              )}
                              
                              {/* Rating */}
-                             {game.rating > 0 && (
+                             {game.rating && game.rating > 0 && (
                                 <span className="text-[#FF9212] text-xs font-bold flex items-center gap-0.5 ml-auto">
                                     <Star size={10} fill="currentColor"/> {game.rating}
                                 </span>
@@ -437,7 +433,9 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
                           
                           <div className="relative w-12 h-12 shrink-0">
                               <LazyImage src={item.icon} alt={item.name} className="w-full h-full rounded-[10px] object-cover border border-gray-100" />
-                              {idx === 0 && <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#FA5A57] rounded-full border-2 border-white"></div>}
+                              {idx === 0 && <div className="absolute -top-1 -right-1 w-4 h-4 bg-[#FA5A57] rounded-full border-2 border-white flex items-center justify-center">
+                                  <Crown size={8} className="text-white fill-white" />
+                              </div>}
                           </div>
 
                           <div className="flex-1 min-w-0">
@@ -507,7 +505,7 @@ export const GamePage: React.FC<GamePageProps> = ({ onNavigate }) => {
               
               <div className="flex items-center gap-2 mb-6 relative z-10">
                  <div className="w-8 h-8 rounded-full bg-[#00C075]/10 flex items-center justify-center">
-                    <Trophy className="text-[#00C075]" size={18} />
+                    <Award className="text-[#00C075]" size={18} />
                  </div>
                  <h2 className="text-lg font-bold text-gray-800">游戏预约榜</h2>
                  <span className="text-xs text-gray-400 ml-auto cursor-pointer hover:text-[#00AEEC] flex items-center">

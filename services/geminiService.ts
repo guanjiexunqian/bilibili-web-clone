@@ -1,6 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { Video } from "../types";
-import { getRandomCover } from "../constants";
+import { getRandomCover, HDSLB_IMAGE_POOL } from "../constants";
 
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
@@ -47,20 +47,28 @@ export const searchVideosWithGemini = async (query: string): Promise<Video[]> =>
 
     const data = JSON.parse(response.text || "[]");
     
-    // Map the text data to include REAL Bilibili assets from our local pool
-    // We try to match category loosely based on query, otherwise random
+    // Enhanced Mapping: Match query content to specific image pools if possible
     return data.map((item: any, index: number) => {
       const lowerQuery = query.toLowerCase();
-      let category: 'gaming' | 'anime' | 'tech' | 'life' | undefined = undefined;
+      const lowerTitle = item.title.toLowerCase();
       
-      if (lowerQuery.includes('game') || lowerQuery.includes('play') || lowerQuery.includes('原神')) category = 'gaming';
-      else if (lowerQuery.includes('anime') || lowerQuery.includes('动画')) category = 'anime';
-      else if (lowerQuery.includes('tech') || lowerQuery.includes('code') || lowerQuery.includes('review')) category = 'tech';
+      let category: keyof typeof HDSLB_IMAGE_POOL = 'life'; // Default
+      
+      // Heuristic matching
+      if (lowerQuery.includes('game') || lowerQuery.includes('play') || lowerTitle.includes('game') || lowerTitle.includes('玩')) {
+          category = 'gaming';
+      } else if (lowerQuery.includes('anime') || lowerQuery.includes('动画') || lowerTitle.includes('番')) {
+          category = 'anime';
+      } else if (lowerQuery.includes('tech') || lowerQuery.includes('code') || lowerTitle.includes('测')) {
+          category = 'tech';
+      }
 
       return {
         ...item,
-        coverUrl: getRandomCover(category), // Use our robust local pool
-        id: `${Date.now()}-${index}-${Math.random()}`, // Ensure unique ID
+        coverUrl: getRandomCover(category), // Use specific pool based on heuristics
+        id: `${Date.now()}-${index}-${Math.random()}`,
+        isAd: false,
+        danmaku: Math.floor(Math.random() * 5000).toString()
       };
     });
 
