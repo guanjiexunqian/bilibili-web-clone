@@ -1,12 +1,9 @@
-import React from 'react';
-import { ChevronRight, Calendar, PlayCircle, Clock } from 'lucide-react';
-import { Carousel } from './Carousel';
 
-const ANIME_CAROUSEL = [
-  { id: 'a1', title: '葬送的芙莉莲：旅途的终点是起点', imageUrl: 'https://picsum.photos/seed/anime-frieren/1200/400', color: '#333' },
-  { id: 'a2', title: '咒术回战：涩谷事变', imageUrl: 'https://picsum.photos/seed/anime-jujutsu/1200/400', color: '#333' },
-  { id: 'a3', title: '间谍过家家 Season 2', imageUrl: 'https://picsum.photos/seed/anime-spy/1200/400', color: '#333' },
-];
+import React, { useEffect, useState } from 'react';
+import { ChevronRight, Calendar, PlayCircle, Clock, Star } from 'lucide-react';
+import { Carousel } from './Carousel';
+import { getTopAiringAnime, getSeasonNow, getUpcomingAnime, AnimeItem } from '../services/animeService';
+import { LazyImage } from './LazyImage';
 
 const WEEK_DAYS = [
   { day: '周一', active: false },
@@ -16,15 +13,6 @@ const WEEK_DAYS = [
   { day: '周五', active: false },
   { day: '周六', active: false },
   { day: '周日', active: false },
-];
-
-const RECENT_UPDATES = [
-  { title: '实吉小姐想对布丁君说教', ep: '第12话', time: '10:00', cover: 'https://picsum.photos/seed/anime-romance/300/170' },
-  { title: '为了在异世界也能抚摸毛茸茸', ep: '第3话', time: '12:30', cover: 'https://picsum.photos/seed/anime-isekai/300/170' },
-  { title: '反派千金等级99', ep: '第5话', time: '18:00', cover: 'https://picsum.photos/seed/anime-villainess/300/170' },
-  { title: '迷宫饭', ep: '第8话', time: '20:00', cover: 'https://picsum.photos/seed/anime-food/300/170' },
-  { title: '金属口红', ep: '第2话', time: '21:30', cover: 'https://picsum.photos/seed/anime-scifi/300/170' },
-  { title: '战国妖狐', ep: '第11话', time: '23:00', cover: 'https://picsum.photos/seed/anime-youkai/300/170' },
 ];
 
 const CATEGORY_ICONS = [
@@ -37,6 +25,47 @@ const CATEGORY_ICONS = [
 ];
 
 export const AnimePage: React.FC = () => {
+  const [carouselData, setCarouselData] = useState<any[]>([]);
+  const [seasonData, setSeasonData] = useState<AnimeItem[]>([]);
+  const [upcomingData, setUpcomingData] = useState<AnimeItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const [top, season, upcoming] = await Promise.all([
+        getTopAiringAnime(),
+        getSeasonNow(),
+        getUpcomingAnime()
+      ]);
+
+      const carouselFormatted = top.slice(0, 5).map(anime => ({
+        id: String(anime.id),
+        title: anime.title,
+        imageUrl: anime.banner, 
+        color: '#333'
+      }));
+
+      setCarouselData(carouselFormatted);
+      setSeasonData(season);
+      setUpcomingData(upcoming);
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
+  if (loading) {
+     return (
+        <div className="w-full h-[600px] flex items-center justify-center">
+            <div className="flex flex-col items-center gap-4">
+                <div className="w-12 h-12 border-4 border-[#FB7299] border-t-transparent rounded-full animate-spin"></div>
+                <div className="text-gray-500 text-sm">正在加载番剧数据...</div>
+            </div>
+        </div>
+     )
+  }
+
   return (
     <div className="w-full px-4 md:px-12 py-6 animate-fade-in">
       <style>{`
@@ -52,11 +81,11 @@ export const AnimePage: React.FC = () => {
       {/* Top Section: Carousel & Right Side List */}
       <div className="flex flex-col lg:flex-row gap-6 mb-10 h-[380px]">
         {/* Left Carousel */}
-        <div className="flex-1 rounded-xl overflow-hidden shadow-md h-full">
-          <Carousel items={ANIME_CAROUSEL} />
+        <div className="flex-1 rounded-xl overflow-hidden shadow-md h-full bg-gray-100 relative">
+          {carouselData.length > 0 && <Carousel items={carouselData} />}
         </div>
         
-        {/* Right Side List (Rankings/Recommendation) */}
+        {/* Right Side List */}
         <div className="w-full lg:w-[320px] flex flex-col gap-4 h-full">
           <div className="bg-[#F6F7F8] rounded-xl p-4 h-full flex flex-col">
             <div className="flex justify-between items-center mb-4">
@@ -64,16 +93,18 @@ export const AnimePage: React.FC = () => {
               <span className="text-xs text-gray-500 cursor-pointer hover:text-[#00AEEC]">查看更多</span>
             </div>
             <div className="flex-1 overflow-y-auto pr-1 space-y-3 no-scrollbar">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="flex gap-3 group cursor-pointer">
-                  <div className="w-24 h-14 rounded-md overflow-hidden shrink-0">
-                    <img src={`https://picsum.photos/seed/anime-rec-${i}/200/120`} className="w-full h-full object-cover" />
+              {upcomingData.map((anime, i) => (
+                <div key={anime.id} className="flex gap-3 group cursor-pointer">
+                  <div className="w-24 h-14 rounded-md overflow-hidden shrink-0 bg-gray-200">
+                    <LazyImage src={anime.banner} alt={anime.title} className="w-full h-full object-cover" />
                   </div>
-                  <div className="flex flex-col justify-between py-0.5">
+                  <div className="flex flex-col justify-between py-0.5 min-w-0">
                     <h4 className="text-[13px] font-medium text-gray-800 leading-tight line-clamp-2 group-hover:text-[#00AEEC] transition-colors">
-                      {i % 2 === 0 ? "关于我转生变成史莱姆这档事" : "葬送的芙莉莲：新的旅程开始"}
+                      {anime.title}
                     </h4>
-                    <span className="text-[11px] text-gray-400">更新至第{12+i}话</span>
+                    <span className="text-[11px] text-gray-400 truncate">
+                        {anime.status === 'Not yet aired' ? '即将播出' : '连载中'}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -102,32 +133,22 @@ export const AnimePage: React.FC = () => {
          <div className="flex items-center gap-2 mb-6">
             <Calendar className="text-[#FB7299]" size={24} />
             <h2 className="text-2xl font-bold text-gray-900">新番时间表</h2>
-            <div className="flex ml-6 bg-[#F1F2F3] rounded-lg p-1">
-              {WEEK_DAYS.map((d, i) => (
-                <div 
-                  key={i} 
-                  className={`px-4 py-1.5 rounded-md text-[13px] font-medium cursor-pointer transition-all ${d.active ? 'bg-white text-[#00AEEC] shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
-                >
-                  {d.day}
-                </div>
-              ))}
-            </div>
             <div className="ml-auto flex items-center text-[13px] text-gray-500 hover:text-[#00AEEC] cursor-pointer">
               查看全部 <ChevronRight size={14} />
             </div>
          </div>
 
          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {RECENT_UPDATES.map((anime, idx) => (
-              <div key={idx} className="group cursor-pointer">
-                <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-2 shadow-sm">
-                   <img src={anime.cover} alt={anime.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
-                   <div className="absolute top-1 right-1 bg-[#FB7299] text-white text-[10px] px-1.5 py-0.5 rounded-sm">
-                     {anime.time}
+            {seasonData.slice(0, 12).map((anime, idx) => (
+              <div key={anime.id} className="group cursor-pointer">
+                <div className="relative aspect-[16/9] rounded-lg overflow-hidden mb-2 shadow-sm bg-gray-200">
+                   <LazyImage src={anime.banner} alt={anime.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"/>
+                   <div className="absolute top-1 right-1 bg-[#FB7299] text-white text-[10px] px-1.5 py-0.5 rounded-sm z-10">
+                     更新中
                    </div>
                 </div>
                 <h3 className="text-[14px] text-gray-800 font-medium truncate group-hover:text-[#00AEEC] transition-colors">{anime.title}</h3>
-                <p className="text-[12px] text-gray-400 mt-1">更新至 {anime.ep}</p>
+                <p className="text-[12px] text-gray-400 mt-1">更新至 {anime.episodes || '?'} 话</p>
               </div>
             ))}
          </div>
@@ -139,20 +160,20 @@ export const AnimePage: React.FC = () => {
             <PlayCircle className="text-[#00AEEC]" size={24} />
             <h2 className="text-2xl font-bold text-gray-900">编辑推荐</h2>
          </div>
-         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-5">
-            {Array.from({ length: 10 }).map((_, i) => (
-               <div key={i} className="group cursor-pointer">
-                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-2 shadow-md">
-                     <img src={`https://picsum.photos/seed/anime-editor-${i}/300/400`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
-                     <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent"></div>
-                     <span className="absolute bottom-2 left-2 text-white text-[12px] flex items-center gap-1">
-                        <PlayCircle size={12} /> {Math.floor(Math.random() * 500)}万
+         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-5">
+            {upcomingData.map((anime, i) => (
+               <div key={anime.id} className="group cursor-pointer">
+                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-2 shadow-md bg-gray-200">
+                     <LazyImage src={anime.image} alt={anime.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                     <div className="absolute bottom-0 inset-x-0 h-1/3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+                     <span className="absolute bottom-2 left-2 text-white text-[12px] flex items-center gap-1 z-10">
+                        <Star size={12} className="fill-white text-white" /> {anime.score || 'N/A'}
                      </span>
                   </div>
                   <h3 className="text-[14px] text-gray-800 font-medium line-clamp-1 group-hover:text-[#00AEEC] transition-colors">
-                     {['无职转生', '鬼灭之刃', '进击的巨人', '火影忍者', '死神'][i % 5]}：特别篇章 {i+1}
+                     {anime.title}
                   </h3>
-                  <p className="text-[12px] text-gray-400 mt-1">全24话</p>
+                  <p className="text-[12px] text-gray-400 mt-1 line-clamp-1">{anime.year ? `${anime.year}年` : '待定'}</p>
                </div>
             ))}
          </div>

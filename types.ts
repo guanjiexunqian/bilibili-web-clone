@@ -6,6 +6,7 @@ export interface Video {
   date: string;
   duration: string;
   coverUrl: string;
+  previewUrl?: string; // New field for hover previews
   isAd?: boolean;
 }
 
@@ -20,3 +21,5 @@ export interface CarouselItem {
   imageUrl: string;
   color: string;
 }
+
+export type Page = 'home' | 'anime' | 'live' | 'game' | 'manga' | 'dynamic' | 'search';
