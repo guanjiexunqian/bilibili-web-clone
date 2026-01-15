@@ -10,6 +10,7 @@ import { GamePage } from './components/GamePage';
 import { MangaPage } from './components/MangaPage';
 import { DynamicPage } from './components/DynamicPage';
 import { SearchPage } from './components/SearchPage';
+import { VideoPlayerPage } from './components/VideoPlayerPage';
 import { Elevator } from './components/Elevator';
 import { INITIAL_VIDEOS, CAROUSEL_ITEMS, generateVideos } from './constants';
 import { Video, Page } from './types';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
 
   // Sentinel ref for infinite scroll
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -66,6 +68,12 @@ const App: React.FC = () => {
     if (page === 'home' && videos.length !== INITIAL_VIDEOS.length) {
        // Optional: setVideos(INITIAL_VIDEOS); 
     }
+  };
+
+  const handleVideoSelect = (video: Video) => {
+    setSelectedVideo(video);
+    setCurrentPage('video');
+    window.scrollTo({ top: 0, behavior: 'auto' });
   };
 
   // Infinite Scroll Logic
@@ -152,7 +160,7 @@ const App: React.FC = () => {
 
                   {/* Video Cards Feed */}
                   {videos.map((video) => (
-                    <VideoCard key={video.id} video={video} />
+                    <VideoCard key={video.id} video={video} onClick={handleVideoSelect} />
                   ))}
                   
                    {/* Loading Skeletons */}
@@ -205,7 +213,12 @@ const App: React.FC = () => {
 
         {/* Search Page */}
         {currentPage === 'search' && (
-          <SearchPage query={searchQuery} videos={videos} />
+          <SearchPage query={searchQuery} videos={videos} onVideoSelect={handleVideoSelect} />
+        )}
+
+        {/* Video Player Page */}
+        {currentPage === 'video' && selectedVideo && (
+           <VideoPlayerPage video={selectedVideo} onVideoSelect={handleVideoSelect} />
         )}
 
         {currentPage === 'anime' && (

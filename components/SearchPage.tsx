@@ -6,9 +6,10 @@ import { VideoCard } from './VideoCard';
 interface SearchPageProps {
   query: string;
   videos: Video[];
+  onVideoSelect?: (video: Video) => void;
 }
 
-export const SearchPage: React.FC<SearchPageProps> = ({ query, videos }) => {
+export const SearchPage: React.FC<SearchPageProps> = ({ query, videos, onVideoSelect }) => {
   const tabs = [
     { label: '综合', active: true },
     { label: '视频', count: '99+' },
@@ -97,10 +98,9 @@ export const SearchPage: React.FC<SearchPageProps> = ({ query, videos }) => {
         </div>
 
         {/* 4. Results Grid */}
-        {/* Bilibili Search usually is 5 cols on large screens, similar to home but cleaner */}
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-5 gap-y-8">
            {videos.map((video) => (
-             <VideoCard key={video.id} video={video} />
+             <VideoCard key={video.id} video={video} onClick={onVideoSelect} />
            ))}
            
            {/* Fallback Empty State */}

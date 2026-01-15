@@ -5,9 +5,10 @@ import { LazyImage } from './LazyImage';
 
 interface VideoCardProps {
   video: Video;
+  onClick?: (video: Video) => void;
 }
 
-export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
+export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -29,11 +30,21 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
     };
   }, [isHovered]);
 
+  const handleClick = (e: React.MouseEvent) => {
+    // Prevent navigation if clicking on specific action buttons (like Watch Later)
+    if ((e.target as HTMLElement).closest('.action-btn')) return;
+    
+    if (onClick) {
+        onClick(video);
+    }
+  };
+
   return (
     <div 
       className="group cursor-pointer flex flex-col gap-2.5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleClick}
     >
       {/* ==========================================
           THUMBNAIL AREA
@@ -80,7 +91,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         {/* 3. Watch Later Clock (Top Right) */}
         {/* Only visible on hover, slides in slightly */}
         <div className={`absolute top-1.5 right-1.5 z-30 transition-all duration-200 ${isHovered ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-1'}`}>
-           <div className="bg-[#1C1C1C]/80 backdrop-blur-[2px] text-white p-1.5 rounded-[4px] hover:bg-[#FB7299] transition-colors" title="稍后再看">
+           <div className="bg-[#1C1C1C]/80 backdrop-blur-[2px] text-white p-1.5 rounded-[4px] hover:bg-[#FB7299] transition-colors action-btn" title="稍后再看">
               <Clock size={18} />
            </div>
         </div>

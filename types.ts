@@ -22,4 +22,4 @@ export interface CarouselItem {
   color: string;
 }
 
-export type Page = 'home' | 'anime' | 'live' | 'game' | 'manga' | 'dynamic' | 'search';
+export type Page = 'home' | 'anime' | 'live' | 'game' | 'manga' | 'dynamic' | 'search' | 'video';
