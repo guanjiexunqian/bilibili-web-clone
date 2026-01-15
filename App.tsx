@@ -15,6 +15,7 @@ import { Elevator } from './components/Elevator';
 import { INITIAL_VIDEOS, CAROUSEL_ITEMS, generateVideos } from './constants';
 import { Video, Page } from './types';
 import { searchVideosWithGemini } from './services/geminiService';
+import { fetchRealBilibiliData } from './services/bilibiliService'; // Import the new service
 import { RefreshCw } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -28,6 +29,20 @@ const App: React.FC = () => {
 
   // Sentinel ref for infinite scroll
   const loadMoreRef = useRef<HTMLDivElement>(null);
+
+  // === Effect: Fetch Real Bilibili Data on Mount ===
+  useEffect(() => {
+    const initRealData = async () => {
+        const realData = await fetchRealBilibiliData();
+        if (realData.length > 0) {
+            setVideos(realData);
+        }
+    };
+    
+    // We only fetch real data if we are on the home page and not searching
+    // This replaces the "Mock Data" with "Real Data" automatically
+    initRealData();
+  }, []);
 
   const handleSearch = async (query: string) => {
     if (!query.trim()) return;
@@ -45,16 +60,21 @@ const App: React.FC = () => {
     setIsSearching(false);
   };
 
-  const handleRefresh = () => {
+  const handleRefresh = async () => {
     if (isRefreshing) return;
     setIsRefreshing(true);
-    // Simulate data fetch
-    setTimeout(() => {
-        // Generate new fresh content
-        const freshVideos = generateVideos(20);
-        setVideos(freshVideos);
-        setIsRefreshing(false);
-    }, 800);
+    
+    // Try to fetch new real data, fall back to mock generation if it fails or returns empty
+    const realData = await fetchRealBilibiliData();
+    if (realData.length > 0) {
+         // Shuffle slightly to simulate refresh if needed, or just set new data
+         // Since API data is static for some time, let's just reverse it or mix it for visual change
+         setVideos(realData.sort(() => Math.random() - 0.5));
+    } else {
+         const freshVideos = generateVideos(20);
+         setVideos(freshVideos);
+    }
+    setIsRefreshing(false);
   };
 
   const scrollToTop = () => {

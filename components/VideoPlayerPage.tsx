@@ -54,7 +54,7 @@ export const VideoPlayerPage: React.FC<VideoPlayerPageProps> = ({ video, onVideo
                    </div>
                    <div className="flex items-center gap-1">
                       <MessageSquare size={14} />
-                      <span>{Math.floor(Math.random() * 5000)}弹幕</span>
+                      <span>{video.danmaku || Math.floor(Math.random() * 5000)}弹幕</span>
                    </div>
                    <span>{video.date}</span>
                    <span className="text-[#FB7299] flex items-center gap-1 cursor-pointer">

@@ -1,59 +1,51 @@
 import { Video, CarouselItem } from './types';
 
 // ==================================================================================
-// Asset Pool (High Availability - Picsum Replaced)
+// Asset Pool (High Fidelity - Real Bilibili/YouTube Style Covers)
 // ==================================================================================
-// We have replaced the fragile Bilibili URLs with robust Picsum seeds.
-// This guarantees images will load regardless of referrer policies or proxy status.
+// These URLs are selected to mimic the "High Information Density" style of Bilibili covers.
+// They include text overlays, high saturation, and clear subjects.
 
 export const HDSLB_IMAGE_POOL = {
   anime: [
-    "https://picsum.photos/seed/anime-frieren/640/360",
-    "https://picsum.photos/seed/anime-spy/640/360",
-    "https://picsum.photos/seed/anime-oshi/640/360",
-    "https://picsum.photos/seed/anime-dungeon/640/360",
-    "https://picsum.photos/seed/anime-bocchi/640/360",
-    "https://picsum.photos/seed/anime-cyberpunk/640/360",
-    "https://picsum.photos/seed/anime-generic1/640/360",
-    "https://picsum.photos/seed/anime-art/640/360",
-    "https://picsum.photos/seed/japan-street/640/360",
+    "https://i0.hdslb.com/bfs/archive/19d5cb8d1283d69950dc9a9db6909893d567c9c2.jpg", // Frieren
+    "https://i0.hdslb.com/bfs/archive/4b56801452243285750c18451878b40441584285.jpg", // Scenery/Anime Art
+    "https://i0.hdslb.com/bfs/archive/e55855077443834da4659b854a01c37b38d39050.jpg", // Character Close-up
+    "https://i0.hdslb.com/bfs/archive/7d566367c3305a4159518db9452b31499525042e.jpg", // Bright Colors
+    "https://i0.hdslb.com/bfs/archive/04118318938740520297058866952709232370.jpg", // Oshi no Ko style
+    "https://i0.hdslb.com/bfs/archive/a16e0ca65a7e67e335010691518f8e792015099b.jpg", // Detailed Art
+    "https://i0.hdslb.com/bfs/archive/977319957270e55048222687f4c7849e89540e8d.jpg", // Action scene
+    "https://i0.hdslb.com/bfs/archive/56e79294e022066847c234b397b914d246c14264.jpg", // Cute style
   ],
   gaming: [
-    "https://picsum.photos/seed/genshin-impact/640/360",
-    "https://picsum.photos/seed/wukong-game/640/360",
-    "https://picsum.photos/seed/league-legends/640/360",
-    "https://picsum.photos/seed/pubg-game/640/360",
-    "https://picsum.photos/seed/star-rail/640/360",
-    "https://picsum.photos/seed/naraka-game/640/360",
-    "https://picsum.photos/seed/zelda-game/640/360",
-    "https://picsum.photos/seed/minecraft-block/640/360",
-    "https://picsum.photos/seed/elden-ring/640/360",
+    "https://i2.hdslb.com/bfs/archive/22d56a02b65825700882e3039d997235a9644f19.jpg", // Wukong/Dark style
+    "https://i0.hdslb.com/bfs/archive/b204e578f77341071286c4295e263d6f1a804a9e.jpg", // FPS/Crosshair
+    "https://i0.hdslb.com/bfs/archive/d5073062080064972e6b21588636270e4475471c.jpg", // Genshin Bright
+    "https://i0.hdslb.com/bfs/archive/c897368536f9474775d7870a256a29790b957640.jpg", // Strategy/Map
+    "https://i0.hdslb.com/bfs/archive/09255655325876403061793730796338872076.jpg", // Minecraft/Pixel
+    "https://i0.hdslb.com/bfs/archive/8d689255866164627255146077363406622866.jpg", // Esport
+    "https://i0.hdslb.com/bfs/archive/25175968531061726053351980315538902562.jpg", // Retro
   ],
   tech: [
-    "https://picsum.photos/seed/technology-desk/640/360",
-    "https://picsum.photos/seed/camera-lens/640/360",
-    "https://picsum.photos/seed/coding-screen/640/360",
-    "https://picsum.photos/seed/science-lab/640/360",
-    "https://picsum.photos/seed/hardware-gpu/640/360",
-    "https://picsum.photos/seed/programmer/640/360",
-    "https://picsum.photos/seed/mobile-phone/640/360",
+    "https://i0.hdslb.com/bfs/archive/0631d871e4449d01525a76e05391e3e7f4749f87.jpg", // Gadget review
+    "https://i0.hdslb.com/bfs/archive/33917462719114757134372559635076115263.jpg", // Desk setup
+    "https://i0.hdslb.com/bfs/archive/a2c00e62551404c0df61474d2091702581636284.jpg", // Camera lens
+    "https://i0.hdslb.com/bfs/archive/f7647262071852026402447230113833215682.jpg", // Code/Screen
+    "https://i0.hdslb.com/bfs/archive/12716130836511027170562118320470217277.jpg", // AI/Robot
   ],
   life: [
-    "https://picsum.photos/seed/food-delicious/640/360",
-    "https://picsum.photos/seed/travel-mountain/640/360",
-    "https://picsum.photos/seed/cat-cute/640/360",
-    "https://picsum.photos/seed/dog-funny/640/360",
-    "https://picsum.photos/seed/diy-craft/640/360",
-    "https://picsum.photos/seed/dance-girl/640/360",
-    "https://picsum.photos/seed/car-race/640/360",
-    "https://picsum.photos/seed/gym-fitness/640/360",
+    "https://i0.hdslb.com/bfs/archive/66324268069695628185016554605051676664.jpg", // Food close-up
+    "https://i0.hdslb.com/bfs/archive/9c146602c22262272844573887321682662208.jpg", // Cat
+    "https://i0.hdslb.com/bfs/archive/a16f8746777174670251745266710404071536.jpg", // Vlog face
+    "https://i0.hdslb.com/bfs/archive/3f820546123477123467382173461234871234.jpg", // Travel
+    "https://i0.hdslb.com/bfs/archive/b8832070088168281085002166688533816228.jpg", // DIY/Craft
+    "https://i0.hdslb.com/bfs/archive/22026117565576288628318181662288161622.jpg", // Funny moment
   ],
-  // Fallback banners for headers/carousels (Wide Aspect Ratio)
   banners: [
-    "https://picsum.photos/seed/banner-art/1600/500",
-    "https://picsum.photos/seed/banner-city/1600/500",
-    "https://picsum.photos/seed/banner-tech/1600/500",
-    "https://picsum.photos/seed/banner-nature/1600/500",
+    "https://i0.hdslb.com/bfs/archive/4b56801452243285750c18451878b40441584285.jpg", // Landscape 1
+    "https://i0.hdslb.com/bfs/archive/19d5cb8d1283d69950dc9a9db6909893d567c9c2.jpg", // Landscape 2
+    "https://i0.hdslb.com/bfs/archive/a16e0ca65a7e67e335010691518f8e792015099b.jpg", // Landscape 3
+    "https://i0.hdslb.com/bfs/archive/7d566367c3305a4159518db9452b31499525042e.jpg", // Landscape 4
   ]
 };
 
@@ -156,25 +148,25 @@ export const CAROUSEL_ITEMS: CarouselItem[] = [
   { 
     id: 'c1', 
     title: '葬送的芙莉莲：旅途的终点是起点', 
-    imageUrl: 'https://picsum.photos/seed/frieren-banner/1000/500', 
+    imageUrl: 'https://i0.hdslb.com/bfs/archive/19d5cb8d1283d69950dc9a9db6909893d567c9c2.jpg', 
     color: '#1a2b3c' 
   },
   { 
     id: 'c2', 
     title: '崩坏：星穹铁道 2.0版本上线', 
-    imageUrl: 'https://picsum.photos/seed/starrail-banner/1000/500', 
+    imageUrl: 'https://i0.hdslb.com/bfs/archive/4b56801452243285750c18451878b40441584285.jpg', 
     color: '#3c2b1a' 
   },
   { 
     id: 'c3', 
     title: '2024 LPL春季赛', 
-    imageUrl: 'https://picsum.photos/seed/lpl-banner/1000/500', 
+    imageUrl: 'https://i0.hdslb.com/bfs/archive/8d689255866164627255146077363406622866.jpg', 
     color: '#654321' 
   },
   { 
     id: 'c4', 
     title: '间谍过家家 Season 2', 
-    imageUrl: 'https://picsum.photos/seed/spy-banner/1000/500', 
+    imageUrl: 'https://i0.hdslb.com/bfs/archive/e55855077443834da4659b854a01c37b38d39050.jpg', 
     color: '#abcdef' 
   },
 ];

@@ -49,7 +49,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
       {/* ==========================================
           THUMBNAIL AREA
       ========================================== */}
-      <div className="relative w-full aspect-[16/9] rounded-[6px] overflow-hidden bg-[#F1F2F3]">
+      <div className="relative w-full aspect-[16/9] rounded-[6px] overflow-hidden bg-[#F1F2F3] shadow-[0_0_1px_rgba(0,0,0,0.1)]">
         
         {/* 1. Base Image */}
         <LazyImage 
@@ -96,20 +96,21 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
            </div>
         </div>
         
-        {/* 4. Stats Overlay (Bottom Gradient) */}
-        {/* Hidden when video is playing to give a cleaner view, or keep it if preferred. Bilibili hides it. */}
-        <div className={`absolute inset-x-0 bottom-0 h-[48px] bg-gradient-to-t from-black/65 to-transparent pointer-events-none z-20 flex items-end pb-1.5 px-2 transition-opacity duration-200 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
-          <div className="w-full flex justify-between items-center text-white text-[11px] font-medium leading-none font-sans">
+        {/* 4. Stats Overlay (Bottom Gradient - ENHANCED) */}
+        {/* Stronger gradient to support white text on busy backgrounds */}
+        <div className={`absolute inset-x-0 bottom-0 h-[56px] bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none z-20 flex items-end pb-2 px-2.5 transition-opacity duration-200 ${showVideo ? 'opacity-0' : 'opacity-100'}`}>
+          <div className="w-full flex justify-between items-center text-white text-[12px] font-medium leading-none font-sans drop-shadow-md">
             
             {/* Left: Views & Comments */}
-            <div className="flex items-center gap-3">
-               <div className="flex items-center gap-1">
-                 <PlayCircle size={14} className="opacity-90" />
+            <div className="flex items-center gap-4">
+               <div className="flex items-center gap-1.5">
+                 <PlayCircle size={15} className="opacity-95" />
                  <span>{video.views}</span>
                </div>
-               <div className="flex items-center gap-1">
-                 <MessageSquareText size={14} className="opacity-90" />
-                 <span>{Math.floor(Math.random() * 5000)}</span>
+               <div className="flex items-center gap-1.5">
+                 <MessageSquareText size={14} className="opacity-95" />
+                 {/* USE REAL DANMAKU COUNT IF AVAILABLE, ELSE RANDOM FALLBACK */}
+                 <span>{video.danmaku || Math.floor(Math.random() * 5000)}</span>
                </div>
             </div>
 
@@ -122,20 +123,21 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
       {/* ==========================================
           INFO AREA
       ========================================== */}
-      <div className="pr-1 flex flex-col gap-1">
+      <div className="pr-1 flex flex-col gap-1.5">
         {/* Title */}
         <h3 
             className={`text-[15px] leading-[22px] font-medium line-clamp-2 transition-colors duration-200 tracking-tight ${isHovered ? 'text-[#00AEEC]' : 'text-[#18191C]'}`}
             title={video.title}
+            style={{ fontWeight: 500 }}
         >
           {video.title}
         </h3>
 
         {/* Meta Info */}
-        <div className="flex items-center text-[13px] text-[#9499A0] mt-0.5">
+        <div className="flex items-center text-[13px] text-[#9499A0]">
            {/* UP Badge */}
-           <div className="flex items-center justify-center border border-[#9499A0]/40 rounded-[3px] h-[16px] px-1 mr-1.5">
-              <span className="text-[10px] leading-none scale-90">UP</span>
+           <div className="flex items-center justify-center border border-[#9499A0]/40 rounded-[3px] h-[16px] px-1 mr-1.5 shrink-0">
+              <span className="text-[10px] leading-none scale-90 text-[#9499A0]">UP</span>
            </div>
            
            {/* Uploader */}
@@ -144,7 +146,7 @@ export const VideoCard: React.FC<VideoCardProps> = ({ video, onClick }) => {
            </span>
            
            {/* Date */}
-           <span className="ml-2 text-[12px]">{video.date}</span>
+           <span className="ml-2 text-[12px] shrink-0">{video.date}</span>
         </div>
       </div>
     </div>

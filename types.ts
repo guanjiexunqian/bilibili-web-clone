@@ -8,6 +8,7 @@ export interface Video {
   coverUrl: string;
   previewUrl?: string; // New field for hover previews
   isAd?: boolean;
+  danmaku?: string; // Mapped from Bilibili 'stat.danmaku'
 }
 
 export interface Category {
